@@ -1,0 +1,142 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    background-color: #f2faff;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header */
+  .header {
+    background-color: #007aff;
+    color: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .saldo-box h1 {
+    font-size: 32px;
+    margin: 10px 0;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .action-buttons .btn {
+    background-color: white;
+    color: #007aff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .action-buttons .btn:hover {
+    background-color: #e0f0ff;
+  }
+  
+  /* Menu Navigasi */
+  .menu {
+    margin-bottom: 20px;
+  }
+  
+  .menu h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .menu-item {
+    text-align: center;
+  }
+  
+  .menu-item img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .menu-item p {
+    font-size: 12px;
+    color: #555;
+  }
+  
+  /* Promo Section */
+  .promo {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .promo h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .promo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .promo-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+  }
+  
+  .promo-item h3 {
+    font-size: 14px;
+    color: #007aff;
+    margin-bottom: 5px;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-item {
+    text-align: center;
+    color: #555;
+  }
+  
+  .footer-item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+  }
+  
+  .footer-item.active p {
+    color: #007aff;
+  }
+  
