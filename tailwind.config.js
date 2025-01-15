@@ -28,13 +28,13 @@ export default {
         customTheme: {
           primary: '#0fa683',
           secondary: '#380FA6',
-          accent: '#A60F32', // Gunakan 'accent' untuk tombol tambahan
-          neutral: '#7EA60F', // Warna untuk elemen netral
-          'base-100': '#ffffff', // Warna latar belakang utama
-          'base-200': '#808080', // Warna sekunder
+          accent: '#A60F32',
+          neutral: '#7EA60F',
+          'base-100': '#ffffff',
+          'base-200': '#808080',
         },
       },
-      'light', // Tambahkan tema bawaan jika diperlukan
+      'light',
       'dark',
     ],
   },
