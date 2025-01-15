@@ -9,11 +9,10 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore --fix"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.5.2",
     "@capacitor/android": "^6.2.0",
     "@capacitor/cli": "^6.2.0",
     "@capacitor/core": "^6.2.0",
-    "antd": "^5.23.0",
+    "daisyui": "^4.12.23",
     "dayjs": "^1.11.13",
     "jspdf": "^2.5.2",
     "lodash": "^4.17.21",
