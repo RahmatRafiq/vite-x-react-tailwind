@@ -9,7 +9,7 @@ const App = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <Dashboard />
-        <ThemeController />  
+      <ThemeController />
       <Footer />
     </div>
   );
