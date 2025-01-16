@@ -3,6 +3,7 @@ const ProfileSection = () => {
         <div className="card card-side bg-base-100 shadow-xl">
             <figure>
                 <img
+                    className="rounded-xl"
                     src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
                     alt="Movie" />
             </figure>
