@@ -2,10 +2,12 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <header className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text">
+        <header>
             <div className="navbar bg-base-100">
                 <div className="flex-1">
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <a className="btn btn-ghost text-xl whitespace-nowrap">
+                        Sisfo Mobile
+                    </a>
                 </div>
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">

@@ -26,20 +26,7 @@ export default {
     },
   },
   plugins: [require('daisyui')],
-  // daisyui: {
-  //   themes: [
-  //     {
-  //       customTheme: {
-  //         primary: '#0fa683',
-  //         secondary: '#380FA6',
-  //         accent: '#A60F32',
-  //         neutral: '#7EA60F',
-  //         'base-100': '#ffffff',  // Light theme base
-  //         'base-200': '#808080',  // Light theme secondary
-  //       },
-  //     },
-  //     'light',
-  //     'dark',
-  //   ],
-  // },
+  daisyui: {
+    themes: ["light", "dark", "cupcake","night"],
+  },
 };
