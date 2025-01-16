@@ -18,10 +18,10 @@ export default {
         quaternary: '#7EA60F',
         base: '#fff',
         'base-2': '#808080',
-        'light-background': '#ffffff', // Tambahkan warna background untuk light mode
-        'dark-background': '#1a202c',  // Tambahkan warna background untuk dark mode
-        'light-text': '#333333',       // Tambahkan warna teks untuk light mode
-        'dark-text': '#f7fafc',         // Tambahkan warna teks untuk dark mode
+        'light-background': '#ffffff', 
+        'dark-background': '#1a202c',
+        'light-text': '#333333',       
+        'dark-text': '#f7fafc',         
       },
     },
   },
