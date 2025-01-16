@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
-import ThemeController from './components/ThemeController';  // Letakkan ThemeController di sini untuk pengaturan tema global
+import ThemeController from './components/ThemeController';
 
 const App = () => {
   return (
