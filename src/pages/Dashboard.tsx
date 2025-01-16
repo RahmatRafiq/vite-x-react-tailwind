@@ -1,5 +1,4 @@
 import React from 'react';
-import ThemeController from '../components/ThemeController';
 
 const Dashboard = () => {
   return (
@@ -9,7 +8,6 @@ const Dashboard = () => {
         <p className="mb-4">Ini adalah halaman dashboard untuk sistem informasi akademik.</p>
         <p>Data dan informasi akademik kamu bisa dilihat di sini.</p>
       </div>
-      <ThemeController />
     </div>
   );
 };

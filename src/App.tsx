@@ -1,14 +1,16 @@
 import React from 'react';
-import Dashboard from './pages/Dashboard';
 import Header from './components/Header';
+import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
+import ThemeController from './components/ThemeController';  // Letakkan ThemeController di sini untuk pengaturan tema global
 
 const App = () => {
   return (
-    <div className="App flex flex-col min-h-screen">
-           <Header />
-      <Dashboard/>
-      <Footer/>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <Dashboard />
+        <ThemeController />  
+      <Footer />
     </div>
   );
 };
