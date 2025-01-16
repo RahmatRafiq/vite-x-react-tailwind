@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBell, FaUserCircle, FaFileInvoiceDollar } from 'react-icons/fa';
+import { FaBell, FaFileInvoiceDollar } from 'react-icons/fa';
 
 const Header = () => {
     const handleViewBill = () => {
@@ -9,18 +9,24 @@ const Header = () => {
     return (
         <header>
             <div className="navbar bg-base-100 shadow-md px-4">
+                {/* Logo */}
                 <div className="flex-1">
                     <a className="btn btn-ghost text-xl whitespace-nowrap">
                         Sisfo Mobile
                     </a>
                 </div>
+
+                {/* Navigation Items */}
                 <div className="flex-none flex items-center gap-4">
+                    {/* Notifications */}
                     <button className="btn btn-ghost btn-circle">
                         <div className="indicator">
                             <FaBell className="h-5 w-5" />
                             <span className="badge badge-sm indicator-item">8</span>
                         </div>
                     </button>
+
+                    {/* Billing Dropdown */}
                     <div className="dropdown dropdown-end">
                         <div
                             tabIndex={0}
@@ -50,6 +56,8 @@ const Header = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* User Menu */}
                     <div className="dropdown dropdown-end">
                         <div
                             tabIndex={0}
@@ -57,7 +65,12 @@ const Header = () => {
                             className="btn btn-ghost btn-circle avatar"
                         >
                             <div className="w-10 rounded-full">
-                                <FaUserCircle className="h-8 w-8 text-gray-600" />
+                                {/* Gambar Profil */}
+                                <img
+                                    src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                                    alt="User Profile"
+                                    className="rounded-full"
+                                />
                             </div>
                         </div>
                         <ul
