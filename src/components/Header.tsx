@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <header>
+        <header className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text">
             <div className="navbar bg-base-100">
                 <div className="flex-1">
                     <a className="btn btn-ghost text-xl">daisyUI</a>

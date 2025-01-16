@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer >
+        <footer className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text">
             <div className="btm-nav">
                 <button className="text-primary">
                     <svg
