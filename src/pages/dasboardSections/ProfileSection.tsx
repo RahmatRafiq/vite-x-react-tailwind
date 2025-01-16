@@ -7,7 +7,7 @@ const ProfileSection = () => {
                     alt="Movie" />
             </figure>
             <div className="card-body">
-                <h2 className="card-title">New movie is released!</h2>
+                <h2 className="card-title">Halo! Mahasisa</h2>
                 <p>Click the button to watch on Jetflix app.</p>
                 <div className="card-actions justify-end">
                     <button className="btn btn-primary">Watch</button>
