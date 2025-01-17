@@ -5,23 +5,23 @@ const SummarySection = () => {
     const statistics = [
         {
             id: 1,
-            label: 'KRS Saat Ini',
+            label: 'KRS Anda',
             value: 24,
-            icon: <FaClipboardList className="h-5 w-5 text-secondary" />,
+            icon: <FaClipboardList className="h-8 w-8 text-accent" />,  // Menggunakan text-accent
             desc: 'Tahun 20241',
         },
         {
             id: 2,
             label: 'Mata Kuliah',
             value: 6,
-            icon: <FaBook className="h-5 w-5 text-secondary" />,
+            icon: <FaBook className="h-8 w-8 text-accent" />,  // Menggunakan text-accent
             desc: 'Tahun 20241',
         },
         {
             id: 3,
             label: 'Total SKS',
             value: 18,
-            icon: <FaBook className="h-5 w-5 text-secondary" />,
+            icon: <FaBook className="h-8 w-8 text-accent" />,  // Menggunakan text-accent
             desc: 'Tahun 20241',
         },
     ];
