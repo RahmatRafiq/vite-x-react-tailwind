@@ -8,7 +8,7 @@ const MenuSection = () => {
     { id: 2, name: "Details", icon: <FaInfoCircle />, tooltip: "Details", path: "/details" },
     { id: 3, name: "Stats", icon: <FaChartBar />, tooltip: "Stats", path: "/stats" },
     { id: 4, name: "Settings", icon: <FaCog />, tooltip: "Settings", path: "/settings" },
-    { id: 5, name: "Profile", icon: <FaUserCircle />, tooltip: "Profile", path: "/profile" },
+    { id: 5, name: "Profile", icon: <FaUserCircle />, tooltip: "Profile", path: "/profile_page" },
     { id: 6, name: "Social Media", icon: <FaInstagram />, tooltip: "Social Media", path: "/social" },
   ];
 

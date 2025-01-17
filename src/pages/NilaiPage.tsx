@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Nilai = () => {
+const NilaiPage = () => {
   return (
     <div className="p-6 md:p-10 lg:p-12">
       <h1 className="text-2xl font-bold mb-4">Nilai</h1>
@@ -9,4 +9,4 @@ const Nilai = () => {
   );
 };
 
-export default Nilai;
+export default NilaiPage;
