@@ -48,11 +48,11 @@ const SummaryKrsSection = () => {
                     </div>
                 </div>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 space-y-4">
                 <div className="dropdown w-full max-w-full bg-base-200">
                     <button
                         onClick={toggleDropdown}
-                        className="btn btn-ghost w-full max-w-full text-left bordered">
+                        className="btn btn-primary w-full max-w-full text-left bordered ">
                         <span className="font-semibold">Pilih Tahun KRS</span>
                     </button>
                     {isDropdownOpen && (
@@ -61,7 +61,7 @@ const SummaryKrsSection = () => {
                                 <li key={year}>
                                     <button
                                         onClick={() => handleYearSelect(year)}
-                                        className="btn btn-ghost w-full text-left">
+                                        className="btn btn-bordered w-full text-left mt-3">
                                         {year}
                                     </button>
                                 </li>
