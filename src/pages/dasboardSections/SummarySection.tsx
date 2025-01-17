@@ -3,20 +3,41 @@ import { FaBook, FaClipboardList } from 'react-icons/fa';
 
 const SummarySection = () => {
     const statistics = [
-        { id: 1, label: 'KRS Semester Ini', value: 24, icon: <FaClipboardList /> },
-        { id: 2, label: 'Mata Kuliah Diprogram', value: 6, icon: <FaBook /> },
-        { id: 3, label: 'Mata Kuliah Diprogram', value: 6, icon: <FaBook /> }
+        {
+            id: 1,
+            label: 'KRS Saat Ini',
+            value: 24,
+            icon: <FaClipboardList className="h-5 w-5 text-secondary" />,
+            desc: 'Tahun 20241',
+        },
+        {
+            id: 2,
+            label: 'Mata Kuliah',
+            value: 6,
+            icon: <FaBook className="h-5 w-5 text-secondary" />,
+            desc: 'Tahun 20241',
+        },
+        {
+            id: 3,
+            label: 'Total SKS',
+            value: 18,
+            icon: <FaBook className="h-5 w-5 text-secondary" />,
+            desc: 'Tahun 20241',
+        },
     ];
 
     return (
-        <div className="bg-base-200 rounded-lg p-6 shadow-md my-6 w-full flex justify-between">
-            {statistics.map((stat) => (
-                <div key={stat.id} className="flex flex-col items-center text-center w-1/3">
-                    <div className="text-primary text-3xl mb-2">{stat.icon}</div>
-                    <div className="text-sm font-semibold">{stat.label}</div>
-                    <div className="text-lg font-bold">{stat.value}</div>
-                </div>
-            ))}
+        <div className="bg-base-200 rounded-lg p-6 shadow-md my-6">
+            <div className="flex flex-col xsm:flex-row justify-between gap-6">
+                {statistics.map((stat) => (
+                    <div key={stat.id} className="stat flex flex-col items-start">
+                        <div className="stat-figure flex-shrink-0">{stat.icon}</div>
+                        <div className="stat-title text-base font-semibold truncate">{stat.label}</div>
+                        <div className="stat-value text-2xl font-bold">{stat.value}</div>
+                        <div className="stat-desc text-sm text-gray-500 break-words">{stat.desc}</div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
