@@ -23,6 +23,9 @@ export default {
         'light-text': '#333333',       
         'dark-text': '#f7fafc',
       },
+      screens: {
+        xsm: '480px',
+      },
     },
   },
   plugins: [require('daisyui')],
