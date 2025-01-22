@@ -7,21 +7,21 @@ const SummarySection = () => {
             id: 1,
             label: 'KRS Anda',
             value: 24,
-            icon: <FaClipboardList className="h-6 w-6 sm:h-8 sm:w-8 text-accent" />, // Responsif
+            icon: <FaClipboardList className="h-6 w-6 sm:h-8 sm:w-8 text-accent" />, 
             desc: 'Tahun 20241',
         },
         {
             id: 2,
             label: 'Mata Kuliah',
             value: 6,
-            icon: <FaBook className="h-6 w-6 sm:h-8 sm:w-8 text-accent" />, // Responsif
+            icon: <FaBook className="h-6 w-6 sm:h-8 sm:w-8 text-accent" />, 
             desc: 'Tahun 20241',
         },
         {
             id: 3,
             label: 'Total SKS',
             value: 18,
-            icon: <FaBook className="h-6 w-6 sm:h-8 sm:w-8 text-accent" />, // Responsif
+            icon: <FaBook className="h-6 w-6 sm:h-8 sm:w-8 text-accent" />, 
             desc: 'Tahun 20241',
         },
     ];
