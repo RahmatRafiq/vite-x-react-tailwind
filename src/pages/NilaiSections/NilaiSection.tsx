@@ -37,15 +37,27 @@ const NilaiSection = ({ nilai }: { nilai: MataKuliah[] }) => {
                             <div className="collapse-content">
                                 <div className="mt-2">
                                     <h4 className="font-semibold">Tugas:</h4>
-                                    <ul className="list-disc list-inside">
-                                        {mataKuliah.tugas.map((tugas) => (
-                                            <li key={tugas.nomor}>
-                                                <p>
-                                                    <strong>{tugas.nama}</strong>: {tugas.detail}
-                                                </p>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <div className="overflow-x-auto">
+                                        <table className="table table-zebra">
+                                            {/* head */}
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Nama Tugas</th>
+                                                    <th>Detail Tugas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {mataKuliah.tugas.map((tugas) => (
+                                                    <tr key={tugas.nomor}>
+                                                        <th>{tugas.nomor}</th>
+                                                        <td>{tugas.nama}</td>
+                                                        <td>{tugas.detail}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div className="mt-4">
                                     <h4 className="font-semibold">Absen:</h4>
