@@ -74,7 +74,32 @@ const SummaryKrsSection = () => {
 
     return (
         <div>
-            <div className="collapse collapse-arrow bg-base-200">
+          
+            <div className="mt-4 space-y-4">
+                <div className="dropdown w-full max-w-full bg-base-200">
+                    <button
+                        onClick={toggleDropdown}
+                        className="btn btn-primary w-full max-w-full text-left bordered"
+                    >
+                        <span className="font-semibold">Pilih Tahun KRS</span>
+                    </button>
+                    {isDropdownOpen && (
+                        <ul className="menu menu-sm dropdown-content bg-base-300 z-[1] w-full shadow-lg rounded-lg">
+                            {years.map((year) => (
+                                <li key={year}>
+                                    <button
+                                        onClick={() => handleYearSelect(year)}
+                                        className="btn btn-bordered w-full text-left mt-3"
+                                    >
+                                        {year}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            </div>
+            <div className="mt-4 space-y-4 collapse collapse-arrow bg-base-200">
                 <input type="checkbox" className="peer" />
                 <div className="collapse-title text-xl font-semibold">Ringkasan KRS</div>
                 <div className="collapse-content">
@@ -100,30 +125,6 @@ const SummaryKrsSection = () => {
                             </p>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className="mt-4 space-y-4">
-                <div className="dropdown w-full max-w-full bg-base-200">
-                    <button
-                        onClick={toggleDropdown}
-                        className="btn btn-primary w-full max-w-full text-left bordered"
-                    >
-                        <span className="font-semibold">Pilih Tahun KRS</span>
-                    </button>
-                    {isDropdownOpen && (
-                        <ul className="menu menu-sm dropdown-content bg-base-300 z-[1] w-full shadow-lg rounded-lg">
-                            {years.map((year) => (
-                                <li key={year}>
-                                    <button
-                                        onClick={() => handleYearSelect(year)}
-                                        className="btn btn-bordered w-full text-left mt-3"
-                                    >
-                                        {year}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
                 </div>
             </div>
             {selectedYear && (
