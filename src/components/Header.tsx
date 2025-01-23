@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaBell, FaFileInvoiceDollar } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Import Link dari react-router-dom
 
 const Header = () => {
     const handleViewBill = () => {
@@ -50,7 +51,7 @@ const Header = () => {
                                         onClick={handleViewBill}
                                         className="btn btn-primary btn-block"
                                     >
-                                        Lihat Tagihan
+                                        <Link to="/keuangan">Lihat Tagihan</Link> {/* Gunakan Link untuk routing */}
                                     </button>
                                 </div>
                             </div>
@@ -78,10 +79,10 @@ const Header = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             <li>
-                                <a className="justify-between">
+                                <Link to="/profile_page" className="justify-between"> {/* Gunakan Link di sini */}
                                     Profile
                                     <span className="badge">New</span>
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <a>Settings</a>
