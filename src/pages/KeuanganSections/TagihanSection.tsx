@@ -1,61 +1,63 @@
+import React from 'react';
+
+// Tipe data untuk item Tagihan
+type TagihanItem = {
+  label: string;
+  jumlah: number;
+  terbayar: number;
+  tunggakan: number;
+};
+
+// Komponen TagihanSection
 const TagihanSection = () => {
-    return (
-      <div className="card p-4">
-        <h2>Tagihan</h2>
-  
-        {/* SPP */}
-        <div className="collapse collapse-plus border border-base-300 rounded-box mb-4">
+  // Data tagihan
+  const tagihan: TagihanItem[] = [
+    {
+      label: 'SPP',
+      jumlah: 5000000,
+      terbayar: 2500000,
+      tunggakan: 2500000,
+    },
+    {
+      label: 'SSP',
+      jumlah: 3000000,
+      terbayar: 1500000,
+      tunggakan: 1500000,
+    },
+    {
+      label: 'Uang Alumni',
+      jumlah: 1312,
+      terbayar: 1312,
+      tunggakan: 0,
+    },
+  ];
+
+  return (
+    <div className="card p-4">
+      <h2>Tagihan</h2>
+      {tagihan.map((item, index) => (
+        <div key={index} className="collapse collapse-plus border border-base-300 rounded-box mb-4">
           <input type="checkbox" className="peer" />
-          <div className="collapse-title text-xl font-medium">
-            SPP
-          </div>
+          <div className="collapse-title text-xl font-medium">{item.label}</div>
           <div className="collapse-content">
             <ul>
-              <li><strong>Jumlah:</strong> Rp 5,000,000</li>
-              <li><strong>Terbayar:</strong> Rp 2,500,000</li>
-              <li><strong>Tunggakan:</strong> Rp 2,500,000</li>
+              <li><strong>Jumlah:</strong> Rp {item.jumlah}</li>
+              <li><strong>Terbayar:</strong> Rp {item.terbayar}</li>
+              <li><strong>Tunggakan:</strong> Rp {item.tunggakan}</li>
             </ul>
           </div>
         </div>
-  
-        {/* SSP */}
-        <div className="collapse collapse-plus border border-base-300 rounded-box mb-4">
-          <input type="checkbox" className="peer" />
-          <div className="collapse-title text-xl font-medium">
-            SSP
-          </div>
-          <div className="collapse-content">
-            <ul>
-              <li><strong>Jumlah:</strong> Rp 3,000,000</li>
-              <li><strong>Terbayar:</strong> Rp 1,500,000</li>
-              <li><strong>Tunggakan:</strong> Rp 1,500,000</li>
-            </ul>
-          </div>
-        </div>
-  
-        {/* Uang Alumni */}
-        <div className="collapse collapse-plus border border-base-300 rounded-box mb-4">
-          <input type="checkbox" className="peer" />
-          <div className="collapse-title text-xl font-medium">
-            Uang Alumni
-          </div>
-          <div className="collapse-content">
-            <ul>
-              <li><strong>Jumlah   :</strong> Rp 1,312</li>
-              <li><strong>Terbayar :</strong> Rp 1,312</li>
-              <li><strong>Tunggakan:</strong> Rp 0</li>
-            </ul>
-          </div>
-        </div>
-  
-        {/* Total Tagihan */}
-        <div className="mt-4">
-          <h3 className="font-semibold">Total Tagihan</h3>
-          <p>Jumlah: Rp 9,312,312</p>
-        </div>
+      ))}
+      {/* Total Tagihan */}
+      <div className="mt-4">
+        <h3 className="font-semibold">Total Tagihan</h3>
+        <p>
+          Jumlah: Rp{' '}
+          {tagihan.reduce((total, item) => total + item.jumlah, 0)}
+        </p>
       </div>
-    );
-  };
-  
-  export default TagihanSection;
-  
+    </div>
+  );
+};
+
+export default TagihanSection;
