@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Tipe data untuk item Tagihan
 type TagihanItem = {
   label: string;
   jumlah: number;
@@ -8,9 +7,7 @@ type TagihanItem = {
   tunggakan: number;
 };
 
-// Komponen TagihanSection
 const TagihanSection = () => {
-  // Data tagihan
   const tagihan: TagihanItem[] = [
     {
       label: 'SPP',
@@ -48,7 +45,6 @@ const TagihanSection = () => {
           </div>
         </div>
       ))}
-      {/* Total Tagihan */}
       <div className="mt-4">
         <h3 className="font-semibold">Total Tagihan</h3>
         <p>

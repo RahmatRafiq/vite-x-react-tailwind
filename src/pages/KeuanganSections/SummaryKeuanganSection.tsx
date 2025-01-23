@@ -3,11 +3,11 @@ import TagihanSection from './TagihanSection';
 import InfoSection from './InfoSection';
 import { FaRegCreditCard, FaInfoCircle } from 'react-icons/fa';
 
-// Tipe data untuk tab yang dipilih
-type Tab = 1 | 2; // Tab 1: Tagihan, Tab 2: Info
+
+type Tab = 1 | 2;
 
 const SummaryKeuanganSection = () => {
-  const [activeTab, setActiveTab] = useState<Tab>(1); // Default tab = 1 (Tagihan)
+  const [activeTab, setActiveTab] = useState<Tab>(1);
 
   const handleTabChange = (tabIndex: Tab) => {
     setActiveTab(tabIndex);

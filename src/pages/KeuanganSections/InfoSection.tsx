@@ -1,14 +1,11 @@
 import React from 'react';
 
-// Tipe data untuk informasi biaya
 type InfoItem = {
   label: string;
   jumlah: number;
 };
 
-// Komponen InfoSection
 const InfoSection = () => {
-  // Data info
   const infoList: InfoItem[] = [
     { label: 'Biaya SPP Semester 1', jumlah: 5000000 },
     { label: 'Biaya SPP Semester 2', jumlah: 5000000 },
