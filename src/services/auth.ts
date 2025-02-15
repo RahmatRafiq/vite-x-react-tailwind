@@ -14,7 +14,8 @@ export const login = async (email: string, password: string): Promise<LoginRespo
   }
 
   const data = await res.json();
-  // console.log("Full API Response:", data); 
+  
+  localStorage.setItem("access_token", data.token.token);
 
   return {
     access_token: data.token.token,
