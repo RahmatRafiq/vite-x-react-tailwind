@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { login } from "@/services/auth"; // ✅ Pastikan file auth.ts ada
+import { login } from "@/services/auth";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -15,16 +15,22 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await login(username, password);
-      localStorage.setItem("token", res.token);
-      navigate("/");
+      const res = await login(email, password);
+      console.log("Token diterima:", res.access_token); 
+      if (res.access_token) {
+        localStorage.setItem("token", res.access_token);
+        navigate("/");
+      } else {
+        throw new Error("Token tidak ditemukan dalam response");
+      }
     } catch (err) {
-      console.error(err);
-      setError("Username atau password salah");
+      console.error("Error saat login:", err);
+      setError("Email atau password salah");
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -35,12 +41,12 @@ const Login = () => {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="label">Username</label>
+            <label className="label">Email</label>
             <input
-              type="text"
+              type="email"
               className="input input-bordered w-full"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
