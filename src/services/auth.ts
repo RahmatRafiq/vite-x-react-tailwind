@@ -14,10 +14,10 @@ export const login = async (email: string, password: string): Promise<LoginRespo
   }
 
   const data = await res.json();
-  console.log("Full API Response:", data); 
+  // console.log("Full API Response:", data); 
 
   return {
-    access_token: data.token.token, 
-    token_type: "Bearer", 
+    access_token: data.token.token,
+    token_type: "Bearer",
   };
 };
