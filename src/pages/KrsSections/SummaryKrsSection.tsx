@@ -1,24 +1,49 @@
-import React, { useState } from 'react';
-import JadwalKuliahSection from './jadwalKuliahSection';
+import React, { useState, useEffect, useCallback } from "react";
+import { getTahunKhsMahasiswa } from "@/services/TahunKhs";
+import { TahunKHS } from "@/types/TahunKhs";
+import JadwalKuliahSection from "./jadwalKuliahSection";
 
 const SummaryKrsSection = () => {
-    const semester = 'Ganjil';
-    const statusKrs = 'Aktif';
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedYear, setSelectedYear] = useState<string | null>(null);
+    const [years, setYears] = useState<string[]>([]);
 
-    const toggleDropdown = () => {
+    useEffect(() => {
+        const fetchYears = async () => {
+            try {
+                const response = await getTahunKhsMahasiswa();
+                if (Array.isArray(response.data) && Array.isArray(response.data[0])) {
+                    const tahunList: TahunKHS[] = response?.data[0];
+                    setYears(tahunList.map((item) => item.tahunid));
+                } else {
+                    console.error("Format data tidak sesuai:", response);
+                }
+            } catch (error) {
+                console.error("Gagal mengambil data tahun KHS:", error);
+            }
+        };
+
+        fetchYears();
+    }, []);
+
+
+    const toggleDropdown = useCallback(() => {
         setIsDropdownOpen((prev) => !prev);
-    };
+    }, []);
 
-    const handleYearSelect = (year: string) => {
+    const handleYearSelect = useCallback((year: string) => {
         setSelectedYear(year);
         setIsDropdownOpen(false);
-    };
+    }, []);
 
-    const years = [
-        '20211', '20212', '20221', '20222', '20231', '20232', '20241', '20242',
-    ];
+    const [semester, setSemester] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (selectedYear) {
+            // Logika menentukan semester berdasarkan selectedYear
+            setSemester(selectedYear.endsWith("1") ? "Ganjil" : "Genap");
+        }
+    }, [selectedYear]);
 
     const jadwalKuliah: { [key: string]: { hari: string; mataKuliah: string; ruangan: string; jam: string; dosen: string; }[] } = {
         '20211': [
@@ -73,32 +98,55 @@ const SummaryKrsSection = () => {
     const mataKuliah = selectedYear ? jadwalKuliah[selectedYear] || [] : [];
 
     return (
-        <div>
-          
-            <div className="mt-4 space-y-4">
-                <div className="dropdown w-full max-w-full bg-base-200">
-                    <button
-                        onClick={toggleDropdown}
-                        className="btn btn-primary w-full max-w-full text-left bordered"
-                    >
-                        <span className="font-semibold">Pilih Tahun KRS</span>
-                    </button>
-                    {isDropdownOpen && (
-                        <ul className="menu menu-sm dropdown-content bg-base-300 z-[1] w-full shadow-lg rounded-lg">
-                            {years.map((year) => (
+        <div className="mt-4 space-y-4">
+            <div className="dropdown w-full max-w-full bg-base-200">
+                <button
+                    onClick={toggleDropdown}
+                    className="btn btn-primary w-full max-w-full text-left bordered"
+                >
+                    <span className="font-semibold">
+                        {selectedYear ? `Tahun KHS: ${selectedYear}` : "Pilih Tahun KRS"}
+                    </span>
+                </button>
+                {isDropdownOpen && (
+                    <ul className="menu menu-sm dropdown-content bg-base-300 z-[1] w-full shadow-lg rounded-lg">
+                        {years.length > 0 ? (
+                            years.map((year) => (
                                 <li key={year}>
                                     <button
-                                        onClick={() => handleYearSelect(year)}
                                         className="btn btn-bordered w-full text-left mt-3"
+                                        onClick={() => handleYearSelect(year)}
                                     >
                                         {year}
                                     </button>
                                 </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
+                            ))
+                        ) : (
+                            <li className="p-2 text-gray-500">Tidak ada data</li>
+                        )}
+                    </ul>
+                )}
+                {/* {isDropdownOpen && (
+                    <ul className="absolute bg-base-300 w-full mt-2 shadow-lg rounded-lg z-10">
+                        {years.length > 0 ? (
+                            years.map((year) => (
+                                <li key={year}>
+                                    <button
+                                        className="btn btn-bordered w-full text-left mt-3"
+                                        onClick={() => handleYearSelect(year)}
+                                    >
+                                        {year}
+                                    </button>
+                                </li>
+                            ))
+                        ) : (
+                            <li className="p-2 text-gray-500">Tidak ada data</li>
+                        )}
+                    </ul>
+                )} */}
+
             </div>
+
             <div className="mt-4 space-y-4 collapse collapse-arrow bg-base-200">
                 <input type="checkbox" className="peer" />
                 <div className="collapse-title text-xl font-semibold">Ringkasan KRS</div>
@@ -117,11 +165,11 @@ const SummaryKrsSection = () => {
                         <div>
                             <p>
                                 <span className="font-semibold">Status KRS:</span>{' '}
-                                <span
+                                {/* <span
                                     className={`badge ${statusKrs === 'Aktif' ? 'badge-success' : 'badge-error'}`}
                                 >
                                     {statusKrs}
-                                </span>
+                                </span> */}
                             </p>
                         </div>
                     </div>
