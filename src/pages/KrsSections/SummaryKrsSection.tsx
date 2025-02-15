@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { getTahunKhsMahasiswa } from "@/services/TahunKhs";
+import { getTahunKhsMahasiswa, getStatusKrs } from "@/services/TahunKhs";
 import { TahunKHS } from "@/types/TahunKhs";
 import JadwalKuliahSection from "./jadwalKuliahSection";
 
@@ -7,6 +7,7 @@ const SummaryKrsSection = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedYear, setSelectedYear] = useState<string | null>(null);
     const [years, setYears] = useState<string[]>([]);
+    const [statusKrs, setStatusKrs] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchYears = async () => {
@@ -26,7 +27,6 @@ const SummaryKrsSection = () => {
         fetchYears();
     }, []);
 
-
     const toggleDropdown = useCallback(() => {
         setIsDropdownOpen((prev) => !prev);
     }, []);
@@ -40,8 +40,28 @@ const SummaryKrsSection = () => {
 
     useEffect(() => {
         if (selectedYear) {
-            // Logika menentukan semester berdasarkan selectedYear
             setSemester(selectedYear.endsWith("1") ? "Ganjil" : "Genap");
+
+            const fetchStatusKrs = async () => {
+                type StatusKrsResponse = {
+                    data: {
+                        status_mahasiswa: {
+                            nama: string;
+                        };
+                    }[][];
+                };
+
+                const response = await getStatusKrs(selectedYear) as unknown as StatusKrsResponse;
+
+                // Ambil status dari response data (status_mahasiswa.nama)
+                if (response.data && response.data[0]?.[0]?.status_mahasiswa?.nama) {
+                    setStatusKrs(response.data[0][0].status_mahasiswa.nama);
+                } else {
+                    setStatusKrs('Status tidak ditemukan');
+                }
+            };
+
+            fetchStatusKrs();
         }
     }, [selectedYear]);
 
@@ -126,25 +146,6 @@ const SummaryKrsSection = () => {
                         )}
                     </ul>
                 )}
-                {/* {isDropdownOpen && (
-                    <ul className="absolute bg-base-300 w-full mt-2 shadow-lg rounded-lg z-10">
-                        {years.length > 0 ? (
-                            years.map((year) => (
-                                <li key={year}>
-                                    <button
-                                        className="btn btn-bordered w-full text-left mt-3"
-                                        onClick={() => handleYearSelect(year)}
-                                    >
-                                        {year}
-                                    </button>
-                                </li>
-                            ))
-                        ) : (
-                            <li className="p-2 text-gray-500">Tidak ada data</li>
-                        )}
-                    </ul>
-                )} */}
-
             </div>
 
             <div className="mt-4 space-y-4 collapse collapse-arrow bg-base-200">
@@ -164,12 +165,7 @@ const SummaryKrsSection = () => {
                         </div>
                         <div>
                             <p>
-                                <span className="font-semibold">Status KRS:</span>{' '}
-                                {/* <span
-                                    className={`badge ${statusKrs === 'Aktif' ? 'badge-success' : 'badge-error'}`}
-                                >
-                                    {statusKrs}
-                                </span> */}
+                                <span className="font-semibold">Status KRS:</span> {statusKrs || 'Belum ada status'}
                             </p>
                         </div>
                     </div>
