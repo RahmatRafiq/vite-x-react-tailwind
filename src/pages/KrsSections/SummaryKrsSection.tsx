@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { getTahunKhsMahasiswa, getStatusKrs, getJadwalKuliah } from "@/services/TahunKhs";
-import { TahunKHS } from "@/types/TahunKhs";
+import { JadwalKuliah, JadwalKuliahResponse, TahunKHS } from "@/types/TahunKhs";
 import JadwalKuliahSection from "./jadwalKuliahSection";
 
 const SummaryKrsSection = () => {
@@ -64,7 +64,7 @@ const SummaryKrsSection = () => {
 
     const fetchMataKuliah = async (KhsID: string) => {
         try {
-            const response = await getJadwalKuliah(KhsID);
+            const response: JadwalKuliahResponse = await getJadwalKuliah(KhsID);
             console.log(response);
 
             const daysMap: Record<number, string> = {
@@ -78,7 +78,7 @@ const SummaryKrsSection = () => {
             };
 
             if (response?.data && Array.isArray(response.data[0])) {
-                const mataKuliahData = response.data[0].map((item: { jadwal_id: number; mk_nama: string; hari_id: number; nama_kelas: string; jam_mulai: string; jam_selesai: string; ruang_id: string; dsn: string; }) => ({
+                const mataKuliahData = response.data[0].map((item: JadwalKuliah) => ({
                     hari: daysMap[item.hari_id] || 'N/A',
                     mataKuliah: item.mk_nama,
                     ruangan: item.ruang_id,
@@ -93,6 +93,18 @@ const SummaryKrsSection = () => {
             console.error("Error fetching mata kuliah:", error);
         }
     };
+
+    const groupedByDay = useMemo(() => {
+        return mataKuliah.reduce((acc: Record<string, typeof mataKuliah>, item) => {
+            if (item.hari !== 'N/A') {  
+                if (!acc[item.hari]) {
+                    acc[item.hari] = [];
+                }
+                acc[item.hari].push(item);
+            }
+            return acc;
+        }, {});
+    }, [mataKuliah]);
 
     return (
         <div className="mt-4 space-y-4">
@@ -149,16 +161,12 @@ const SummaryKrsSection = () => {
                 </div>
             </div>
 
-            {mataKuliah.length > 0 && (
-                <div className="mt-6">
-                    {mataKuliah.map((kuliah, index) => (
-                        <JadwalKuliahSection
-                            key={index}
-                            jadwal={[kuliah]}
-                        />
-                    ))}
+            {Object.entries(groupedByDay).map(([hari, mataKuliahList], index) => (
+                <div key={index} className="mt-6">
+                    <h3 className="text-xl font-semibold">{hari}</h3>
+                    <JadwalKuliahSection jadwal={mataKuliahList} />
                 </div>
-            )}
+            ))}
         </div>
     );
 };

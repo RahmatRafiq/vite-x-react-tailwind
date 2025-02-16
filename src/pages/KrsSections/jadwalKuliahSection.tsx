@@ -1,6 +1,14 @@
 import React from 'react';
 
-const JadwalKuliahSection = ({ jadwal }: { jadwal: Array<{ hari: string; mataKuliah: string; ruangan: string; jam: string; dosen: string }> }) => {
+const JadwalKuliahSection = ({ jadwal }: {
+    jadwal: Array<{
+        hari: string;
+        mataKuliah: string;
+        ruangan: string;
+        jam: string;
+        dosen: string
+    }>
+}) => {
     const groupedByDay = jadwal.reduce((acc: Record<string, typeof jadwal>, item) => {
         if (!acc[item.hari]) {
             acc[item.hari] = [];
