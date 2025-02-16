@@ -4,7 +4,7 @@ export type TahunKHS = {
 
 export type TahunKHSResponse = {
     status: string;
-    data: TahunKHS[][]; // Data dalam bentuk array dalam array
+    data: TahunKHS[]; // Data dalam bentuk array dalam array
     code: number;
 };
 
