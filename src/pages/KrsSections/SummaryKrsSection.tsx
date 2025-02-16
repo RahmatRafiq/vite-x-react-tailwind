@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { getTahunKhsMahasiswa, getStatusKrs } from "@/services/TahunKhs";
+import { getTahunKhsMahasiswa, getStatusKrs, getJadwalKuliah } from "@/services/TahunKhs";
 import { TahunKHS } from "@/types/TahunKhs";
 import JadwalKuliahSection from "./jadwalKuliahSection";
 
@@ -8,6 +8,7 @@ const SummaryKrsSection = () => {
     const [selectedYear, setSelectedYear] = useState<string | null>(null);
     const [years, setYears] = useState<string[]>([]);
     const [statusKrs, setStatusKrs] = useState<string | null>(null);
+    const [mataKuliah, setMataKuliah] = useState<{ hari: string; mataKuliah: string; ruangan: string; jam: string; dosen: string; }[]>([]);
 
     useEffect(() => {
         const fetchYears = async () => {
@@ -39,75 +40,61 @@ const SummaryKrsSection = () => {
     const [semester, setSemester] = useState<string | null>(null);
 
     useEffect(() => {
-        if (selectedYear) {
-            setSemester(selectedYear.endsWith("1") ? "Ganjil" : "Genap");
-
-            const fetchStatusKrs = async () => {
-                const response = await getStatusKrs(selectedYear);
-
+        const fetchStatusKrs = async () => {
+            try {
+                const response = await getStatusKrs(selectedYear as string);
                 if (response.data && response.data[0]?.[0]?.status_mahasiswa) {
                     setStatusKrs(response.data[0][0].status_mahasiswa);
+                    const KhsID = response.data[0][0].khs_id;
+
+                    // Panggil fetchMataKuliah setelah mendapatkan KhsID
+                    await fetchMataKuliah(KhsID);  // pastikan menunggu selesai
                 } else {
                     setStatusKrs('Status tidak ditemukan');
                 }
-            };
+            } catch (error) {
+                console.error("Error fetching status KRS:", error);
+                setStatusKrs('Gagal mengambil status');
+            }
+        };
 
-
-            fetchStatusKrs();
+        if (selectedYear) {
+            setSemester(selectedYear.endsWith("1") ? "Ganjil" : "Genap");
+            fetchStatusKrs();  // Panggil fetchStatusKrs saat selectedYear ada
         }
     }, [selectedYear]);
 
-    const jadwalKuliah: { [key: string]: { hari: string; mataKuliah: string; ruangan: string; jam: string; dosen: string; }[] } = {
-        '20211': [
-            { hari: 'Senin', mataKuliah: 'Matematika Dasar', ruangan: 'R101', jam: '08:00 - 09:30', dosen: 'Dr. A' },
-            { hari: 'Senin', mataKuliah: 'Fisika Umum', ruangan: 'R102', jam: '10:00 - 11:30', dosen: 'Dr. B' },
-            { hari: 'Selasa', mataKuliah: 'Kimia Dasar', ruangan: 'R103', jam: '08:00 - 09:30', dosen: 'Dr. C' },
-            { hari: 'Selasa', mataKuliah: 'Biologi Umum', ruangan: 'R104', jam: '10:00 - 11:30', dosen: 'Dr. D' },
-            { hari: 'Rabu', mataKuliah: 'Pemrograman Dasar', ruangan: 'R105', jam: '08:00 - 09:30', dosen: 'Dr. E' },
-            { hari: 'Rabu', mataKuliah: 'Struktur Data', ruangan: 'R106', jam: '10:00 - 11:30', dosen: 'Dr. F' },
-            { hari: 'Kamis', mataKuliah: 'Algoritma', ruangan: 'R107', jam: '08:00 - 09:30', dosen: 'Dr. G' },
-            { hari: 'Kamis', mataKuliah: 'Basis Data', ruangan: 'R108', jam: '10:00 - 11:30', dosen: 'Dr. H' },
-            { hari: 'Jumat', mataKuliah: 'Sistem Operasi', ruangan: 'R109', jam: '08:00 - 09:30', dosen: 'Dr. I' },
-            { hari: 'Jumat', mataKuliah: 'Jaringan Komputer', ruangan: 'R110', jam: '10:00 - 11:30', dosen: 'Dr. J' },
-        ],
-        '20212': [
-            { hari: 'Senin', mataKuliah: 'Matematika Dasar', ruangan: 'R101', jam: '08:00 - 09:30', dosen: 'Dr. A' },
-            { hari: 'Senin', mataKuliah: 'Fisika Umum', ruangan: 'R102', jam: '10:00 - 11:30', dosen: 'Dr. B' },
-            { hari: 'Selasa', mataKuliah: 'Kimia Dasar', ruangan: 'R103', jam: '08:00 - 09:30', dosen: 'Dr. C' },
-            { hari: 'Rabu', mataKuliah: 'Pemrograman Dasar', ruangan: 'R105', jam: '08:00 - 09:30', dosen: 'Dr. E' },
-            { hari: 'Rabu', mataKuliah: 'Struktur Data', ruangan: 'R106', jam: '10:00 - 11:30', dosen: 'Dr. F' },
-            { hari: 'Kamis', mataKuliah: 'Algoritma', ruangan: 'R107', jam: '08:00 - 09:30', dosen: 'Dr. G' },
-            { hari: 'Kamis', mataKuliah: 'Basis Data', ruangan: 'R108', jam: '10:00 - 11:30', dosen: 'Dr. H' },
-            { hari: 'Jumat', mataKuliah: 'Sistem Operasi', ruangan: 'R109', jam: '08:00 - 09:30', dosen: 'Dr. I' },
-            { hari: 'Jumat', mataKuliah: 'Jaringan Komputer', ruangan: 'R110', jam: '10:00 - 11:30', dosen: 'Dr. J' },
-        ],
-        '20221': [
-            { hari: 'Senin', mataKuliah: 'Matematika Dasar', ruangan: 'R101', jam: '08:00 - 09:30', dosen: 'Dr. A' },
-            { hari: 'Senin', mataKuliah: 'Fisika Umum', ruangan: 'R102', jam: '10:00 - 11:30', dosen: 'Dr. B' },
-            { hari: 'Selasa', mataKuliah: 'Kimia Dasar', ruangan: 'R103', jam: '08:00 - 09:30', dosen: 'Dr. C' },
-            { hari: 'Selasa', mataKuliah: 'Biologi Umum', ruangan: 'R104', jam: '10:00 - 11:30', dosen: 'Dr. D' },
-            { hari: 'Rabu', mataKuliah: 'Pemrograman Dasar', ruangan: 'R105', jam: '08:00 - 09:30', dosen: 'Dr. E' },
-            { hari: 'Rabu', mataKuliah: 'Struktur Data', ruangan: 'R106', jam: '10:00 - 11:30', dosen: 'Dr. F' },
-            { hari: 'Kamis', mataKuliah: 'Algoritma', ruangan: 'R107', jam: '08:00 - 09:30', dosen: 'Dr. G' },
-            { hari: 'Kamis', mataKuliah: 'Basis Data', ruangan: 'R108', jam: '10:00 - 11:30', dosen: 'Dr. H' },
-            { hari: 'Jumat', mataKuliah: 'Sistem Operasi', ruangan: 'R109', jam: '08:00 - 09:30', dosen: 'Dr. I' },
-            { hari: 'Jumat', mataKuliah: 'Jaringan Komputer', ruangan: 'R110', jam: '10:00 - 11:30', dosen: 'Dr. J' },
-        ],
-        '20222': [
-            { hari: 'Senin', mataKuliah: 'Matematika Dasar', ruangan: 'R101', jam: '08:00 - 09:30', dosen: 'Dr. A' },
-            { hari: 'Senin', mataKuliah: 'Fisika Umum', ruangan: 'R102', jam: '10:00 - 11:30', dosen: 'Dr. B' },
-            { hari: 'Selasa', mataKuliah: 'Kimia Dasar', ruangan: 'R103', jam: '08:00 - 09:30', dosen: 'Dr. C' },
-            { hari: 'Selasa', mataKuliah: 'Biologi Umum', ruangan: 'R104', jam: '10:00 - 11:30', dosen: 'Dr. D' },
-            { hari: 'Rabu', mataKuliah: 'Pemrograman Dasar', ruangan: 'R105', jam: '08:00 - 09:30', dosen: 'Dr. E' },
-            { hari: 'Rabu', mataKuliah: 'Struktur Data', ruangan: 'R106', jam: '10:00 - 11:30', dosen: 'Dr. F' },
-            { hari: 'Kamis', mataKuliah: 'Algoritma', ruangan: 'R107', jam: '08:00 - 09:30', dosen: 'Dr. G' },
-            { hari: 'Kamis', mataKuliah: 'Basis Data', ruangan: 'R108', jam: '10:00 - 11:30', dosen: 'Dr. H' },
-            { hari: 'Jumat', mataKuliah: 'Sistem Operasi', ruangan: 'R109', jam: '08:00 - 09:30', dosen: 'Dr. I' },
-            { hari: 'Jumat', mataKuliah: 'Jaringan Komputer', ruangan: 'R110', jam: '10:00 - 11:30', dosen: 'Dr. J' },
-        ],
-    };
+    const fetchMataKuliah = async (KhsID: string) => {
+        try {
+            const response = await getJadwalKuliah(KhsID);
+            console.log(response);
 
-    const mataKuliah = selectedYear ? jadwalKuliah[selectedYear] || [] : [];
+            const daysMap: Record<number, string> = {
+                1: 'Senin',
+                2: 'Selasa',
+                3: 'Rabu',
+                4: 'Kamis',
+                5: 'Jumat',
+                6: 'Sabtu',
+                7: 'Minggu',
+            };
+
+            if (response?.data && Array.isArray(response.data[0])) {
+                const mataKuliahData = response.data[0].map((item: { jadwal_id: number; mk_nama: string; hari_id: number; nama_kelas: string; jam_mulai: string; jam_selesai: string; ruang_id: string; dsn: string; }) => ({
+                    hari: daysMap[item.hari_id] || 'N/A',  
+                    mataKuliah: item.mk_nama,
+                    ruangan: item.ruang_id,
+                    jam: `${item.jam_mulai} - ${item.jam_selesai}`,
+                    dosen: item.dsn,
+                }));
+                setMataKuliah(mataKuliahData);
+            } else {
+                console.error("Mata kuliah tidak ditemukan");
+            }
+        } catch (error) {
+            console.error("Error fetching mata kuliah:", error);
+        }
+    };
 
     return (
         <div className="mt-4 space-y-4">
@@ -163,12 +150,16 @@ const SummaryKrsSection = () => {
                     </div>
                 </div>
             </div>
-            {selectedYear && (
-                mataKuliah.length > 0 ? (
-                    <JadwalKuliahSection jadwal={mataKuliah} />
-                ) : (
-                    <p className="text-center mt-4">Belum ada jadwal untuk tahun ajaran ini.</p>
-                )
+
+            {mataKuliah.length > 0 && (
+                <div className="mt-6">
+                    {mataKuliah.map((kuliah, index) => (
+                        <JadwalKuliahSection
+                            key={index}
+                            jadwal={[kuliah]}
+                        />
+                    ))}
+                </div>
             )}
         </div>
     );

@@ -23,17 +23,17 @@ const JadwalKuliahSection = ({ jadwal }: { jadwal: Array<{ hari: string; mataKul
                         {mataKuliahList.map((mataKuliah, idx) => (
                             <div key={idx} tabIndex={0} className="collapse collapse-arrow border border-base-300 rounded-box bg-base-100 mb-2">
                                 <div className="collapse-title text-md font-medium">
-                                    {mataKuliah.mataKuliah}
+                                    {mataKuliah.mataKuliah || 'Mata Kuliah Tidak Ditemukan'}
                                 </div>
                                 <div className="collapse-content">
                                     <p>
-                                        <strong>Ruangan:</strong> {mataKuliah.ruangan}
+                                        <strong>Ruangan:</strong> {mataKuliah.ruangan || 'Ruangan Tidak Tersedia'}
                                     </p>
                                     <p>
-                                        <strong>Jam:</strong> {mataKuliah.jam}
+                                        <strong>Jam:</strong> {mataKuliah.jam || 'Jam Tidak Tersedia'}
                                     </p>
                                     <p>
-                                        <strong>Dosen:</strong> {mataKuliah.dosen || 'Belum ditentukan'}
+                                        <strong>Dosen:</strong> {mataKuliah.dosen || 'Dosen Belum Ditentukan'}
                                     </p>
                                 </div>
                             </div>

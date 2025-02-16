@@ -35,7 +35,7 @@ export const getStatusKrs = async (tahunid: string): Promise<StatusKrsResponse> 
     const data = await fetchData<StatusKrsResponse>(
         `${import.meta.env.VITE_APP_API_URL}/krs/status-krs?tahun_id=${tahunid}`
     );
-    console.log(data);
+    // console.log(data);
     return data || { status: "error", data: [], code: 500 };
 };
 
