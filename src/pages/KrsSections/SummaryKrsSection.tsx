@@ -46,9 +46,7 @@ const SummaryKrsSection = () => {
                 if (response.data && response.data[0]?.[0]?.status_mahasiswa) {
                     setStatusKrs(response.data[0][0].status_mahasiswa);
                     const KhsID = response.data[0][0].khs_id;
-
-                    // Panggil fetchMataKuliah setelah mendapatkan KhsID
-                    await fetchMataKuliah(KhsID);  // pastikan menunggu selesai
+                    await fetchMataKuliah(KhsID);
                 } else {
                     setStatusKrs('Status tidak ditemukan');
                 }
@@ -60,7 +58,7 @@ const SummaryKrsSection = () => {
 
         if (selectedYear) {
             setSemester(selectedYear.endsWith("1") ? "Ganjil" : "Genap");
-            fetchStatusKrs();  // Panggil fetchStatusKrs saat selectedYear ada
+            fetchStatusKrs();
         }
     }, [selectedYear]);
 
@@ -81,7 +79,7 @@ const SummaryKrsSection = () => {
 
             if (response?.data && Array.isArray(response.data[0])) {
                 const mataKuliahData = response.data[0].map((item: { jadwal_id: number; mk_nama: string; hari_id: number; nama_kelas: string; jam_mulai: string; jam_selesai: string; ruang_id: string; dsn: string; }) => ({
-                    hari: daysMap[item.hari_id] || 'N/A',  
+                    hari: daysMap[item.hari_id] || 'N/A',
                     mataKuliah: item.mk_nama,
                     ruangan: item.ruang_id,
                     jam: `${item.jam_mulai} - ${item.jam_selesai}`,

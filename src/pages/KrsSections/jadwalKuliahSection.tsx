@@ -1,7 +1,6 @@
 import React from 'react';
 
 const JadwalKuliahSection = ({ jadwal }: { jadwal: Array<{ hari: string; mataKuliah: string; ruangan: string; jam: string; dosen: string }> }) => {
-    // Mengelompokkan mata kuliah berdasarkan hari
     const groupedByDay = jadwal.reduce((acc: Record<string, typeof jadwal>, item) => {
         if (!acc[item.hari]) {
             acc[item.hari] = [];
@@ -15,7 +14,6 @@ const JadwalKuliahSection = ({ jadwal }: { jadwal: Array<{ hari: string; mataKul
             <h2 className="text-xl font-semibold mb-4">Jadwal Mata Kuliah</h2>
             {Object.entries(groupedByDay).map(([hari, mataKuliahList], index) => (
                 <div key={index} className="card bg-base-200 shadow-lg mb-4">
-                    {/* Badge untuk Hari */}
                     <div className="card-header p-4 flex justify-between items-center">
                         <span className="badge badge-primary text-lg">{hari}</span>
                     </div>
