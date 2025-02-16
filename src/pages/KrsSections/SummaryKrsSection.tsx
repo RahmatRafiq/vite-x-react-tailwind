@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { getTahunKhsMahasiswa, getStatusKrs } from "@/services/TahunKhs";
-import { TahunKHS } from "@/types/TahunKhs";
+import { StatusKrsResponse, TahunKHS } from "@/types/TahunKhs";
 import JadwalKuliahSection from "./jadwalKuliahSection";
 
 const SummaryKrsSection = () => {
@@ -43,19 +43,12 @@ const SummaryKrsSection = () => {
             setSemester(selectedYear.endsWith("1") ? "Ganjil" : "Genap");
 
             const fetchStatusKrs = async () => {
-                type StatusKrsResponse = {
-                    data: {
-                        status_mahasiswa: {
-                            nama: string;
-                        };
-                    }[][];
-                };
+                
 
-                const response = await getStatusKrs(selectedYear) as unknown as StatusKrsResponse;
+                const response = await getStatusKrs(selectedYear)  as StatusKrsResponse;
 
-                // Ambil status dari response data (status_mahasiswa.nama)
-                if (response.data && response.data[0]?.[0]?.status_mahasiswa?.nama) {
-                    setStatusKrs(response.data[0][0].status_mahasiswa.nama);
+                if (response.data && response.data[0]?.[0]?.status_mahasiswa) {
+                    setStatusKrs(response.data[0][0].status_mahasiswa);
                 } else {
                     setStatusKrs('Status tidak ditemukan');
                 }
