@@ -1,25 +1,30 @@
 import React from 'react';
 import { FaBell, FaFileInvoiceDollar } from 'react-icons/fa';
-import { Link } from 'react-router-dom'; // Import Link dari react-router-dom
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+
     const handleViewBill = () => {
         console.log('View Bill clicked');
     };
 
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    };
     return (
         <header>
             <div className="navbar bg-base-100 shadow-md px-4">
-                {/* Logo */}
                 <div className="flex-1">
+                    <a className="btn btn-ghost text-xl whitespace-nowrap"></a>
                     <a className="btn btn-ghost text-xl whitespace-nowrap">
                         Sisfo Mobile
                     </a>
                 </div>
 
-                {/* Navigation Items */}
                 <div className="flex-none flex items-center gap-4">
-                    {/* Notifications */}
                     <button className="btn btn-ghost btn-circle">
                         <div className="indicator">
                             <FaBell className="h-5 w-5" />
@@ -27,7 +32,6 @@ const Header = () => {
                         </div>
                     </button>
 
-                    {/* Billing Dropdown */}
                     <div className="dropdown dropdown-end">
                         <div
                             tabIndex={0}
@@ -51,14 +55,13 @@ const Header = () => {
                                         onClick={handleViewBill}
                                         className="btn btn-primary btn-block"
                                     >
-                                        <Link to="/keuangan">Lihat Tagihan</Link> {/* Gunakan Link untuk routing */}
+                                        <Link to="/keuangan">Lihat Tagihan</Link>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* User Menu */}
                     <div className="dropdown dropdown-end">
                         <div
                             tabIndex={0}
@@ -66,7 +69,6 @@ const Header = () => {
                             className="btn btn-ghost btn-circle avatar"
                         >
                             <div className="w-10 rounded-full">
-                                {/* Gambar Profil */}
                                 <img
                                     src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
                                     alt="User Profile"
@@ -79,7 +81,7 @@ const Header = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             <li>
-                                <Link to="/profile_page" className="justify-between"> {/* Gunakan Link di sini */}
+                                <Link to="/profile_page" className="justify-between">
                                     Profile
                                     <span className="badge">New</span>
                                 </Link>
@@ -88,7 +90,9 @@ const Header = () => {
                                 <a>Settings</a>
                             </li>
                             <li>
-                                <button className="btn btn-error btn-block">Sign Out</button>
+                                <button onClick={handleLogout} className="btn btn-error btn-block">
+                                    Sign Out
+                                </button>
                             </li>
                         </ul>
                     </div>
