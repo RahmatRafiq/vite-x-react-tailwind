@@ -1,19 +1,3 @@
-import React from 'react';
-
-type Tugas = {
-    nomor: number;
-    nama: string;
-    detail: string;
-};
-
-type MataKuliah = {
-    nama: string;
-    kode: string;
-    sks: number;
-    tugas: Tugas[];
-    absen: string;
-};
-
 const NilaiSection = ({ nilai }: { nilai: MataKuliah[] }) => {
     return (
         <div className="bg-base-100 p-4 rounded-lg shadow-md mt-4">
