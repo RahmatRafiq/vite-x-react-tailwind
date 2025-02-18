@@ -1,17 +1,43 @@
+// components/ProfileSection.tsx
+
+import { getProfilMahasiswa } from "@/services/Profile";
+import { Mahasiswa } from "@/types/profile";
+import React, { useState, useEffect } from "react";
+
+
 const ProfileSection = () => {
+    const [profile, setProfile] = useState<Mahasiswa | null>(null);
+
+    // Ambil data profil mahasiswa
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const response = await getProfilMahasiswa();
+            if (response && response.status === "success") {
+                setProfile(response.data[0][0]);
+            }
+        };
+
+        fetchProfile();
+    }, []);
+
     return (
         <div className="card card-side bg-base-100 shadow-xl">
             <figure>
                 <img
                     className="rounded-xl"
                     src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                    alt="Movie" />
+                    alt="Mahasiswa Profile"
+                />
             </figure>
             <div className="card-body">
-                <h2 className="card-title">Halo! Mahasisa</h2>
-                <p>Click the button to watch on Jetflix app.</p>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Watch</button>
+                <h2 className="card-title ">Halo, {profile?.nama_mahasiswa || "Mahasiswa"}</h2>
+                <div className="spacer my-4"></div>
+                <div>
+                    <h3 className="text-md font-medium"><strong>Prodi:</strong> {profile?.prodi || "Tidak Ditemukan"}</h3>
+                    <h4 className="text-md font-medium"><strong>NIM:</strong> {profile?.mhsw_id || "Tidak Ditemukan"}</h4>
+                </div>
+                <div className="card-actions justify-end mt-4">
+                    <button className="btn btn-primary">Lihat Detail</button>
                 </div>
             </div>
         </div>
