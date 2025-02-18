@@ -1,13 +1,3 @@
-export type TahunKHS = {
-  tahunid: string;
-};
-
-export type TahunKHSResponse = {
-  status: string;
-  data: TahunKHS[]; // Data dalam bentuk array dalam array
-  code: number;
-};
-
 type StatusKrs = {
   khs_id: string;
   status_mahasiswa: string;

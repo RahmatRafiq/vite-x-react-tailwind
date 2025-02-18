@@ -1,5 +1,6 @@
-import { getTahunKhsMahasiswa } from "@/services/TahunKhs";
-import { TahunKHS } from "@/types/TahunKhs";
+
+import { getTahunKhsMahasiswa } from "@/services/Tahun";
+import { TahunKHS } from "@/types/tahun";
 import { useEffect, useState } from "react";
 
 interface TahunSelectorProps {
