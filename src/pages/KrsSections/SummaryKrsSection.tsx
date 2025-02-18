@@ -1,48 +1,20 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { getTahunKhsMahasiswa, getStatusKrs, getJadwalKuliah } from "@/services/TahunKhs";
-import { JadwalKuliah, JadwalKuliahResponse, TahunKHS } from "@/types/TahunKhs";
+import { useState, useEffect, useMemo } from "react";
+import { getStatusKrs, getJadwalKuliah } from "@/services/TahunKhs";
+import { JadwalKuliah, JadwalKuliahResponse } from "@/types/TahunKhs";
 import JadwalKuliahSection from "./jadwalKuliahSection";
+import TahunSelector from "@/components/TahunSelector";
 
 const SummaryKrsSection = () => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedYear, setSelectedYear] = useState<string | null>(null);
-    const [years, setYears] = useState<string[]>([]);
     const [statusKrs, setStatusKrs] = useState<string | null>(null);
     const [mataKuliah, setMataKuliah] = useState<{ hari: string; mataKuliah: string; ruangan: string; jam: string; dosen: string; }[]>([]);
-
-    useEffect(() => {
-        const fetchYears = async () => {
-            try {
-                const response = await getTahunKhsMahasiswa();
-                if (Array.isArray(response.data) && Array.isArray(response.data[0])) {
-                    const tahunList: TahunKHS[] = response?.data[0];
-                    setYears(tahunList.map((item) => item.tahunid));
-                } else {
-                    console.error("Format data tidak sesuai:", response);
-                }
-            } catch (error) {
-                console.error("Gagal mengambil data tahun KHS:", error);
-            }
-        };
-
-        fetchYears();
-    }, []);
-
-    const toggleDropdown = useCallback(() => {
-        setIsDropdownOpen((prev) => !prev);
-    }, []);
-
-    const handleYearSelect = useCallback((year: string) => {
-        setSelectedYear(year);
-        setIsDropdownOpen(false);
-    }, []);
-
     const [semester, setSemester] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchStatusKrs = async () => {
+            if (!selectedYear) return;
             try {
-                const response = await getStatusKrs(selectedYear as string);
+                const response = await getStatusKrs(selectedYear);
                 if (response.data && response.data[0]?.[0]?.status_mahasiswa) {
                     setStatusKrs(response.data[0][0].status_mahasiswa);
                     const KhsID = response.data[0][0].khs_id;
@@ -56,10 +28,8 @@ const SummaryKrsSection = () => {
             }
         };
 
-        if (selectedYear) {
-            setSemester(selectedYear.endsWith("1") ? "Ganjil" : "Genap");
-            fetchStatusKrs();
-        }
+        setSemester(selectedYear?.endsWith("1") ? "Ganjil" : "Genap");
+        fetchStatusKrs();
     }, [selectedYear]);
 
     const fetchMataKuliah = async (KhsID: string) => {
@@ -108,34 +78,7 @@ const SummaryKrsSection = () => {
 
     return (
         <div className="mt-4 space-y-4">
-            <div className="dropdown w-full max-w-full bg-base-200">
-                <button
-                    onClick={toggleDropdown}
-                    className="btn btn-primary w-full max-w-full text-left bordered"
-                >
-                    <span className="font-semibold">
-                        {selectedYear ? `Tahun KHS: ${selectedYear}` : "Pilih Tahun KRS"}
-                    </span>
-                </button>
-                {isDropdownOpen && (
-                    <ul className="menu menu-sm dropdown-content bg-base-300 z-[1] w-full shadow-lg rounded-lg">
-                        {years.length > 0 ? (
-                            years.map((year) => (
-                                <li key={year}>
-                                    <button
-                                        className="btn btn-bordered w-full text-left mt-3"
-                                        onClick={() => handleYearSelect(year)}
-                                    >
-                                        {year}
-                                    </button>
-                                </li>
-                            ))
-                        ) : (
-                            <li className="p-2 text-gray-500">Tidak ada data</li>
-                        )}
-                    </ul>
-                )}
-            </div>
+            <TahunSelector selectedTahun={selectedYear || ""} onTahunChange={setSelectedYear} />
 
             <div className="mt-4 space-y-4 collapse collapse-arrow bg-base-200">
                 <input type="checkbox" className="peer" />
