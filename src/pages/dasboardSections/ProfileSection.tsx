@@ -34,7 +34,7 @@ const ProfileSection = () => {
                     <h4 className="text-md font-medium"><strong>NIM:</strong> {profile?.mhsw_id || "Tidak Ditemukan"}</h4>
                 </div>
                 <div className="card-actions justify-end mt-4">
-                    <button className="btn btn-primary">Lihat Detail</button>
+                    <button className="btn glass ">Lihat Detail</button>
                 </div>
             </div>
         </div>
