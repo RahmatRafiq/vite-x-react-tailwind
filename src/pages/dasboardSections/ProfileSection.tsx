@@ -1,9 +1,6 @@
-// components/ProfileSection.tsx
-
 import { getProfilMahasiswa } from "@/services/Profile";
 import { Mahasiswa } from "@/types/profile";
 import React, { useState, useEffect } from "react";
-
 
 const ProfileSection = () => {
     const [profile, setProfile] = useState<Mahasiswa | null>(null);
@@ -24,13 +21,13 @@ const ProfileSection = () => {
         <div className="card card-side bg-base-100 shadow-xl">
             <figure>
                 <img
-                    className="rounded-xl"
+                    className="w-full h-full object-cover rounded-xl"
                     src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
                     alt="Mahasiswa Profile"
                 />
             </figure>
-            <div className="card-body">
-                <h2 className="card-title ">Halo, {profile?.nama_mahasiswa || "Mahasiswa"}</h2>
+            <div className="card-body flex flex-col justify-between">
+                <h2 className="card-title text-xl">Halo, {profile?.nama_mahasiswa || "Mahasiswa"}</h2>
                 <div className="spacer my-4"></div>
                 <div>
                     <h3 className="text-md font-medium"><strong>Prodi:</strong> {profile?.prodi || "Tidak Ditemukan"}</h3>
