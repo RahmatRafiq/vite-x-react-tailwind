@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
 import { getStatusKrs, getJadwalKuliah } from "@/services/TahunKhs";
-import { JadwalKuliah, JadwalKuliahResponse } from "@/types/TahunKhs";
 import JadwalKuliahSection from "./jadwalKuliahSection";
 import TahunSelector from "@/components/TahunSelector";
 
