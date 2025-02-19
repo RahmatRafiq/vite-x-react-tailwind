@@ -40,7 +40,7 @@ const TagihanSection = () => {
 
   return (
     <div className="card p-4">
-        <TahunSelector selectedTahun={selectedYear} onTahunChange={setSelectedYear} />
+      <TahunSelector selectedTahun={selectedYear} onTahunChange={setSelectedYear} />
       <div className="card p-4">
         <h2 className="text-lg font-semibold mb-4">Tagihan</h2>
 
@@ -54,10 +54,15 @@ const TagihanSection = () => {
               <input type="checkbox" className="peer" />
               <div className="collapse-title text-xl font-medium">{item.nama}</div>
               <div className="collapse-content">
-                <ul>
+                <ul className="space-y-2">
                   <li><strong>Jumlah:</strong> Rp {item.besar.toLocaleString('id-ID')}</li>
                   <li><strong>Terbayar:</strong> Rp {item.dibayar.toLocaleString('id-ID')}</li>
-                  <li><strong>Tunggakan:</strong> Rp {item.tunggakan.toLocaleString('id-ID')}</li>
+                  <li>
+                    <strong>Tunggakan:</strong> Rp {(item.besar - item.dibayar).toLocaleString('id-ID')}
+                    <span className={`badge ml-2 p-2 text-white ${item.besar - item.dibayar > 0 ? 'badge-error' : 'badge-success'}`}>
+                      {item.besar - item.dibayar > 0 ? 'Tunggakan' : 'Lunas'}
+                    </span>
+                  </li>
                 </ul>
               </div>
             </div>
