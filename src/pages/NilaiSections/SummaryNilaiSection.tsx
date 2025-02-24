@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NilaiSection from './NilaiSection';
 import TahunSelector from "@/components/TahunSelector";
-import { getNilaiMahasiswa } from '@/services/nilai';
+import { getNilaiMahasiswa } from '@/services/Nilai';
 
 const SummaryNilaiSection = () => {
     const [selectedYear, setSelectedYear] = useState<string | null>(null);

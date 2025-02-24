@@ -10,4 +10,14 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  // server: {
+  //   proxy: {
+  //     // Proxy request API ke server backend Anda
+  //     '/api': {
+  //       target: 'http://192.168.189.171:8080/', // Ganti dengan URL server backend Anda
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/api/, ''), // Opsional: jika API di backend tidak menggunakan prefix '/api'
+  //     },
+  //   },
+  // },
 })

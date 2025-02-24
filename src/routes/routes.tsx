@@ -13,7 +13,7 @@ const router = createBrowserRouter([
 
   {
     path: "/",
-    element: <ProtectedRoute />, 
+    element: <ProtectedRoute />,
     children: [
       {
         path: "/", element: <App />, children: [
@@ -22,6 +22,7 @@ const router = createBrowserRouter([
           { path: "keuangan", element: <KeuanganPage /> },
           { path: "nilai", element: <NilaiPage /> },
           { path: "profile_page", element: <ProfilePage /> },
+          { path: "/mahasiswa", element: <ProfilePage /> },
         ]
       },
     ],
