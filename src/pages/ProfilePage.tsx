@@ -89,7 +89,7 @@ const MahasiswaForm = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 md:p-10 lg:p-12 space-y-4 pb-20">
-      <h2 className="text-xl font-bold mb-4">Form Mahasiswa</h2>
+      <h2 className="text-xl font-bold mb-4">Profil Anda</h2>
       {message && (
         <div role="alert" className={`alert ${status === "success" ? "alert-success" : "alert-error"}`}>
           <svg
@@ -117,6 +117,7 @@ const MahasiswaForm = () => {
             <input
               type="text"
               name="nama"
+              readOnly
               value={mahasiswa.nama}
               onChange={handleChangeMahasiswa}
               placeholder="Nama Mahasiswa"
@@ -124,42 +125,14 @@ const MahasiswaForm = () => {
               required
             />
           </label>
-
           <label className="form-control w-full sm:max-w-md">
             <div className="label">
-              <span className="label-text">Alamat Mahasiswa</span>
-            </div>
-            <input
-              type="text"
-              name="alamat"
-              value={mahasiswa.alamat}
-              onChange={handleChangeMahasiswa}
-              placeholder="Alamat Mahasiswa"
-              className="input input-bordered w-full"
-            />
-          </label>
-
-          <label className="form-control w-full sm:max-w-md">
-            <div className="label">
-              <span className="label-text">Program ID</span>
-            </div>
-            <input
-              type="text"
-              name="program_id"
-              value={mahasiswa.program_id}
-              onChange={handleChangeMahasiswa}
-              placeholder="Program ID"
-              className="input input-bordered w-full"
-            />
-          </label>
-
-          <label className="form-control w-full sm:max-w-md">
-            <div className="label">
-              <span className="label-text">Prodi ID</span>
+              <span className="label-text">Program Studi</span>
             </div>
             <input
               type="text"
               name="prodi_id"
+              readOnly
               value={mahasiswa.prodi_id}
               onChange={handleChangeMahasiswa}
               placeholder="Prodi ID"
@@ -174,6 +147,7 @@ const MahasiswaForm = () => {
             <input
               type="email"
               name="email"
+              readOnly
               value={mahasiswa.email}
               onChange={handleChangeMahasiswa}
               placeholder="Email Mahasiswa"
@@ -181,29 +155,56 @@ const MahasiswaForm = () => {
               required
             />
           </label>
+          <section className="mt-6">
+            {/* Divider */}
+            <div className="divider text-base-content font-semibold">Edit Profil Anda</div>
 
-          <label className="form-control w-full sm:max-w-md">
-            <div className="label">
-              <span className="label-text">Handphone</span>
+            {/* Card untuk Form */}
+            <div className="card shadow-lg bg-base-100 rounded-lg p-6 border border-gray-200">
+              <h2 className="text-lg font-bold text-center mb-4">Informasi Kontak</h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Alamat */}
+                <label className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text font-medium">Alamat</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="alamat"
+                    value={mahasiswa.alamat}
+                    onChange={handleChangeMahasiswa}
+                    placeholder="Alamat Mahasiswa"
+                    className="input input-bordered w-full"
+                  />
+                </label>
+
+                {/* Handphone */}
+                <label className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text font-medium">Handphone</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="handphone"
+                    value={mahasiswa.handphone}
+                    onChange={handleChangeMahasiswa}
+                    placeholder="Nomor Handphone"
+                    className="input input-bordered w-full"
+                  />
+                </label>
+              </div>
             </div>
-            <input
-              type="text"
-              name="handphone"
-              value={mahasiswa.handphone}
-              onChange={handleChangeMahasiswa}
-              placeholder="Handphone"
-              className="input input-bordered w-full"
-            />
-          </label>
+          </section>
 
           <button type="button" className="btn btn-primary w-full" onClick={() => setModalOpen(true)}>
             Simpan
           </button>
 
           {modalOpen && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-                <h3 className="text-lg font-bold mb-4">Konfirmasi</h3>
+            <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-sm">
+              <div className="bg-base-100 p-6 rounded-lg shadow-lg max-w-sm border border-gray-300">
+                <h3 className="text-lg text-base-content font-bold mb-4">Konfirmasi</h3>
                 <p>Apakah Anda yakin ingin menyimpan data ini?</p>
                 <div className="flex justify-end mt-4 space-x-2">
                   <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>
