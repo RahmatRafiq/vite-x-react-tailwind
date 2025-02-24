@@ -89,7 +89,7 @@ const MahasiswaForm = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 md:p-10 lg:p-12 space-y-4 pb-20">
-      <h2 className="text-xl font-bold mb-4">Form Mahasiswa</h2>
+      <h2 className="text-xl font-bold mb-4">Profil Anda</h2>
       {message && (
         <div role="alert" className={`alert ${status === "success" ? "alert-success" : "alert-error"}`}>
           <svg
@@ -155,32 +155,47 @@ const MahasiswaForm = () => {
               required
             />
           </label>
-          <label className="form-control w-full sm:max-w-md">
-            <div className="label">
-              <span className="label-text">Alamat</span>
+          <section className="mt-6">
+            {/* Divider */}
+            <div className="divider text-base-content font-semibold">Edit Profil Anda</div>
+
+            {/* Card untuk Form */}
+            <div className="card shadow-lg bg-base-100 rounded-lg p-6 border border-gray-200">
+              <h2 className="text-lg font-bold text-center mb-4">Informasi Kontak</h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Alamat */}
+                <label className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text font-medium">Alamat</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="alamat"
+                    value={mahasiswa.alamat}
+                    onChange={handleChangeMahasiswa}
+                    placeholder="Alamat Mahasiswa"
+                    className="input input-bordered w-full"
+                  />
+                </label>
+
+                {/* Handphone */}
+                <label className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text font-medium">Handphone</span>
+                  </div>
+                  <input
+                    type="text"
+                    name="handphone"
+                    value={mahasiswa.handphone}
+                    onChange={handleChangeMahasiswa}
+                    placeholder="Nomor Handphone"
+                    className="input input-bordered w-full"
+                  />
+                </label>
+              </div>
             </div>
-            <input
-              type="text"
-              name="alamat"
-              value={mahasiswa.alamat}
-              onChange={handleChangeMahasiswa}
-              placeholder="Alamat Mahasiswa"
-              className="input input-bordered w-full"
-            />
-          </label>
-          <label className="form-control w-full sm:max-w-md">
-            <div className="label">
-              <span className="label-text">Handphone</span>
-            </div>
-            <input
-              type="text"
-              name="handphone"
-              value={mahasiswa.handphone}
-              onChange={handleChangeMahasiswa}
-              placeholder="Handphone"
-              className="input input-bordered w-full"
-            />
-          </label>
+          </section>
 
           <button type="button" className="btn btn-primary w-full" onClick={() => setModalOpen(true)}>
             Simpan
