@@ -1,5 +1,5 @@
 import ProfileSection from './dasboardSections/ProfileSection';
-import SummaryJadwalSection from './KrsSections/SummaryJadwalSection';
+import SummaryJadwalSection from './JadwalSections/SummaryJadwalSection';
 
 const Jadwal = () => {
     return (
