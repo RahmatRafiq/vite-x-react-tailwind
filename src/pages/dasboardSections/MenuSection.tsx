@@ -4,7 +4,7 @@ import { FaHome, FaInfoCircle, FaChartBar, FaCog, FaUserCircle, FaInstagram } fr
 
 const MenuSection = () => {
   const menuItems = [
-    { id: 1, name: "KRS", icon: <FaHome />, tooltip: "KRS", path: "/krs" },
+    { id: 1, name: "Jadwal", icon: <FaHome />, tooltip: "Jadwal", path: "/Jadwal" },
     { id: 2, name: "Details", icon: <FaInfoCircle />, tooltip: "Details", path: "/details" },
     { id: 3, name: "Stats", icon: <FaChartBar />, tooltip: "Stats", path: "/stats" },
     { id: 4, name: "Settings", icon: <FaCog />, tooltip: "Settings", path: "/settings" },
