@@ -8,49 +8,6 @@ const Header = () => {
     const [billCount, setBillCount] = useState<number>(0);
     const [totalTunggakan, setTotalTunggakan] = useState<number>(0);
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     async function fetchBills() {
-    //         try {
-    //             const tahunResponse = await getTahunKhsMahasiswa();
-    //             if (tahunResponse.status === 'success' && Array.isArray(tahunResponse.data)) {
-    //                 const tahunArray = tahunResponse.data.flat().map((tahun) => tahun.tahunid);
-
-    //                 const keuanganPromises = tahunArray.map((tahunid: string) =>
-    //                     getKeuanganDetail(tahunid)
-    //                 );
-    //                 const responses = await Promise.all(keuanganPromises);
-
-    //                 const bills = responses
-    //                     .filter(
-    //                         (res) => res.status === 'success' && Array.isArray(res.data)
-    //                     )
-    //                     .flatMap((res) => res.data.flat())
-    //                     .map((item: KeuanganDetail) => ({
-    //                         nama: item.nama,
-    //                         jumlah: item.jumlah ?? 0,
-    //                         terbayar: item.dibayar ?? 0,
-    //                         besar: item.besar ?? 0,
-    //                         dibayar: item.dibayar ?? 0,
-    //                         tunggakan: calculateTunggakan(item.besar, item.dibayar),
-    //                     }));
-                        
-                        
-    //                 setBillCount(bills.length);
-    //                 const total = bills.reduce((sum, bill) => sum + bill.tunggakan, 0);
-    //                 setTotalTunggakan(total);
-    //             } else {
-    //                 setBillCount(0);
-    //                 setTotalTunggakan(0);
-    //             }
-    //         } catch (error) {
-    //             console.error("Error fetching bills in header:", error);
-    //             setBillCount(0);
-    //             setTotalTunggakan(0);
-    //         }
-    //     }
-    //     fetchBills();
-    // }, []);
     useEffect(() => {
         async function fetchBills() {
           try {
@@ -68,9 +25,7 @@ const Header = () => {
                 if (response.status === 'success' && Array.isArray(response.data)) {
                   return response.data.flat().map((item: KeuanganDetail) => {
                     const tunggakan = calculateTunggakan(item.besar, item.dibayar);
-                    console.log(
-                      `Tahun: ${tahunid}, Item: ${item.nama}, Besar: ${item.besar}, Dibayar: ${item.dibayar}, Tunggakan: ${tunggakan}`
-                    );
+                  
                     return {
                       nama: item.nama,
                       jumlah: item.jumlah ?? 0,
@@ -86,11 +41,11 @@ const Header = () => {
                 }
               });
       
-              console.log('Bills:', bills);
+            //   console.log('Bills:', bills);
               setBillCount(bills.length);
               const total = bills.reduce((sum, bill) => sum + bill.tunggakan, 0);
               setTotalTunggakan(total);
-              console.log(`Total Tunggakan: ${total}`);
+            //   console.log(`Total Tunggakan: ${total}`);
             } else {
               setBillCount(0);
               setTotalTunggakan(0);
@@ -106,7 +61,7 @@ const Header = () => {
       
       
     const handleViewBill = () => {
-        console.log('View Bill clicked');
+        // console.log('View Bill clicked');
     };
 
     const handleLogout = () => {

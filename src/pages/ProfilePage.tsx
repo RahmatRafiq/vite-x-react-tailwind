@@ -37,7 +37,6 @@ const MahasiswaForm = () => {
       setLoading(true);
       try {
         const response = await getMahasiswa(mhswId);
-        console.log("Response dari API:", response);
 
         if (response.code === 200 && response.item) {
           setMahasiswa(response.item);
