@@ -6,6 +6,7 @@ import Krs from "@/pages/Krs";
 import NilaiPage from "@/pages/NilaiPage";
 import ProfilePage from "@/pages/ProfilePage";
 import Login from "@/components/Login";
+import Setting from "@/pages/Setting";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
           { path: "nilai", element: <NilaiPage /> },
           { path: "profile_page", element: <ProfilePage /> },
           { path: "/mahasiswa", element: <ProfilePage /> },
+          { path: "setting", element: <Setting /> },
         ]
       },
     ],
