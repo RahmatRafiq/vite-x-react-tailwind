@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import ProfileSection from './dasboardSections/ProfileSection';
 import PaketSection from './KrsSections/KrsSections';
 import { getMataKuliahPaket, KrsPayload } from '@/services/Krs';
-import { MataKuliah, } from '@/types/Krs';
+import { MataKuliah } from '@/types/Krs';
 import { simpanKrs } from '@/services/Krs';
 
 const PaketPage = () => {
   const [mataKuliahPaket, setMataKuliahPaket] = useState<MataKuliah[]>([]);
-  // State untuk melacak apakah KRS sudah disubmit
   const [isKrsSubmitted, setIsKrsSubmitted] = useState<boolean>(false);
   
   const tahunId = "20211"; // bisa disesuaikan/dinamis
@@ -17,9 +16,7 @@ const PaketPage = () => {
     getMataKuliahPaket(tahunId, mkPaketId)
       .then(response => {
         if (response && response.status === "success" && response.data.length > 0) {
-          // Mengambil data dari elemen pertama karena response.data berupa array of array
           setMataKuliahPaket(response.data[0] as MataKuliah[]);
-          // Jika perlu, tambahkan logika pemeriksaan apakah data sudah disubmit sebelumnya
         }
       })
       .catch(error => {
@@ -28,7 +25,6 @@ const PaketPage = () => {
   }, [tahunId, mkPaketId]);
 
   const handleSimpan = async () => {
-    // Mapping data mata kuliah ke format yang diharapkan API
     const krsData = mataKuliahPaket.map(mk => ({
       JadwalID: mk.jadwal_id,
       MKKode: mk.mk_kode,
@@ -52,16 +48,11 @@ const PaketPage = () => {
   return (
     <div className="p-6 md:p-10 lg:p-12 space-y-4">
       <ProfileSection />
-      <PaketSection mataKuliahPaket={mataKuliahPaket} />
-      <div className="flex justify-end mt-4">
-        <button
-          className="btn btn-primary"
-          onClick={handleSimpan}
-          disabled={isKrsSubmitted}  // Disable tombol jika sudah disubmit
-        >
-          {isKrsSubmitted ? "KRS Sudah Disubmit" : "Simpan KRS"}
-        </button>
-      </div>
+      <PaketSection 
+        mataKuliahPaket={mataKuliahPaket} 
+        onSave={handleSimpan} 
+        isSubmitted={isKrsSubmitted}
+      />
     </div>
   );
 };

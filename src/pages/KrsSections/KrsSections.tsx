@@ -2,9 +2,11 @@ import { MataKuliah } from '@/types/Krs';
 
 interface PaketSectionProps {
   mataKuliahPaket: MataKuliah[];
+  onSave: () => void;
+  isSubmitted: boolean;
 }
 
-const PaketSection = ({ mataKuliahPaket }: PaketSectionProps) => {
+const PaketSection = ({ mataKuliahPaket, onSave, isSubmitted }: PaketSectionProps) => {
   return (
     <div className="card bg-base-300 p-4 rounded-lg shadow-md mt-4">
       <h2 className="text-xl font-semibold mb-4">Daftar Mata Kuliah Semester Depan</h2>
@@ -27,6 +29,15 @@ const PaketSection = ({ mataKuliahPaket }: PaketSectionProps) => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-end mt-4">
+        <button
+          className="btn btn-primary"
+          onClick={onSave}
+          disabled={isSubmitted}
+        >
+          {isSubmitted ? "KRS Sudah Disubmit" : "Simpan KRS"}
+        </button>
       </div>
     </div>
   );
