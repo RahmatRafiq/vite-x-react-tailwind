@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProfileSection from './dasboardSections/ProfileSection';
 import PaketSection from './KrsSections/KrsSections';
-import { getMataKuliahPaket, simpanKrs, KrsPayload } from '@/services/Krs';
+import { getMataKuliahPaket, simpanKrs, KrsPayload, cekKrs } from '@/services/Krs';
 import { MataKuliah } from '@/types/Krs';
 import { getMkPaketList, MkPaketItem } from '@/services/Krs';
 import { getTahunKhsMahasiswa } from '@/services/Tahun';
@@ -15,9 +15,11 @@ const PaketPage = () => {
   const [mataKuliahPaket, setMataKuliahPaket] = useState<MataKuliah[]>([]);
   const [isKrsSubmitted, setIsKrsSubmitted] = useState<boolean>(false);
   const [khsID, setKhsID] = useState<string>('');
+  const [hasKrs, setHasKrs] = useState<boolean>(false); // untuk mengecek apakah KRS sudah ada
   const [, setStatusKrs] = useState<string>('');
   const [, setSemester] = useState<string>('');
 
+  // Ambil data tahun dan pilih tahun terbaru
   useEffect(() => {
     const fetchYears = async () => {
       try {
@@ -55,6 +57,29 @@ const PaketPage = () => {
     };
 
     fetchStatusKrs();
+  }, [selectedTahun]);
+
+  useEffect(() => {
+    const checkKrs = async () => {
+      if (!selectedTahun) return;
+      try {
+        const response = await cekKrs(selectedTahun);
+        if (
+          response &&
+          response.status === 'success' &&
+          Array.isArray(response.data) &&
+          response.data.length > 0 &&
+          response.data[0].length > 0
+        ) {
+          const jumlah = response.data[0][0]["Jumlah Mata Kuliah"];
+          setHasKrs(jumlah > 0);
+        }
+      } catch (error) {
+        console.error("Error checking KRS:", error);
+      }
+    };
+
+    checkKrs();
   }, [selectedTahun]);
 
   useEffect(() => {
@@ -132,12 +157,16 @@ const PaketPage = () => {
       <ProfileSection />
 
       <div className="mb-4">
-        <label className="block mb-2 text-sm font-medium text-gray-700">Tahun KHS (terbaru):</label>
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Tahun KHS (terbaru):
+        </label>
         <input type="text" value={selectedTahun} readOnly className="input input-bordered w-full" />
       </div>
 
       <div className="mb-4">
-        <label className="block mb-2 text-sm font-medium text-gray-700">Pilih Paket MK:</label>
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Pilih Paket MK:
+        </label>
         <select className="select select-bordered w-full" value={mkPaketId} onChange={handleMkPaketChange}>
           {mkPaketList.map(item => (
             <option key={item.mkpaketid} value={item.mkpaketid}>
@@ -150,7 +179,7 @@ const PaketPage = () => {
       <PaketSection 
         mataKuliahPaket={mataKuliahPaket} 
         onSave={handleSimpan} 
-        isSubmitted={isKrsSubmitted}
+        isSubmitted={hasKrs || isKrsSubmitted}
       />
     </div>
   );
