@@ -42,3 +42,27 @@ export const getMataKuliahPaket = async (
     console.log("Response dari simpanKrs:", data);
     return data || { status: "error", data: [], code: 500 };
   };
+
+
+export interface MkPaketItem {
+  mkpaketid: number;
+  nama: string;
+  prodi_id: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+export interface MkPaketResponse {
+  status: string;
+  data: [MkPaketItem[]]; 
+  code: number;
+}
+
+export const getMkPaketList = async (tahunId: string): Promise<MkPaketResponse> => {
+  const data = await fetchData<MkPaketResponse>(
+    `${import.meta.env.VITE_APP_API_URL}/krs/paket-mk?tahun_id=${tahunId}`
+  );
+  console.log("MkPaketResponse:", data);
+  return data || { status: "error", data: [[]], code: 500 };
+};
