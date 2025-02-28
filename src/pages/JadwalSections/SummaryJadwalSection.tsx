@@ -3,7 +3,7 @@ import { getStatusKrs, getJadwalKuliah } from "@/services/TahunKhs";
 import JadwalKuliahSection from "./jadwalKuliahSection";
 import TahunSelector from "@/components/TahunSelector";
 
-const SummaryKrsSection = () => {
+const SummaryJadwalSection = () => {
     const [selectedYear, setSelectedYear] = useState<string | null>(null);
     const [statusKrs, setStatusKrs] = useState<string | null>(null);
     const [mataKuliah, setMataKuliah] = useState<{ hari: string; mataKuliah: string; ruangan: string; jam: string; dosen: string; }[]>([]);
@@ -113,4 +113,4 @@ const SummaryKrsSection = () => {
     );
 };
 
-export default SummaryKrsSection;
+export default SummaryJadwalSection;
