@@ -24,6 +24,7 @@ export const getMataKuliahPaket = async (
   }
   
   export interface KrsPayload {
+    KhsID: string;
     KrsData: KrsItem[];
     TahunID: string;
   }
