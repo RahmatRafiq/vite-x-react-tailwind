@@ -15,9 +15,15 @@ const PaketPage = () => {
   const [mataKuliahPaket, setMataKuliahPaket] = useState<MataKuliah[]>([]);
   const [isKrsSubmitted, setIsKrsSubmitted] = useState<boolean>(false);
   const [khsID, setKhsID] = useState<string>('');
-  const [hasKrs, setHasKrs] = useState<boolean>(false); // untuk mengecek apakah KRS sudah ada
+  const [hasKrs, setHasKrs] = useState<boolean>(false); // Untuk mengecek apakah KRS sudah ada
   const [, setStatusKrs] = useState<string>('');
   const [, setSemester] = useState<string>('');
+  
+  // State untuk modal konfirmasi, pesan, status, dan loading
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
+  const [status, setStatus] = useState<"success" | "error" | "">('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Ambil data tahun dan pilih tahun terbaru
   useEffect(() => {
@@ -38,6 +44,7 @@ const PaketPage = () => {
     fetchYears();
   }, []);
 
+  // Ambil status KRS dan KHS ID berdasarkan tahun yang terpilih
   useEffect(() => {
     const fetchStatusKrs = async () => {
       if (!selectedTahun) return;
@@ -59,6 +66,7 @@ const PaketPage = () => {
     fetchStatusKrs();
   }, [selectedTahun]);
 
+  // Cek KRS: apakah KHS yang didapat sudah memiliki mata kuliah?
   useEffect(() => {
     const checkKrs = async () => {
       if (!selectedTahun) return;
@@ -82,6 +90,7 @@ const PaketPage = () => {
     checkKrs();
   }, [selectedTahun]);
 
+  // Ambil daftar paket MK berdasarkan tahun yang terpilih
   useEffect(() => {
     if (selectedTahun) {
       getMkPaketList(selectedTahun)
@@ -107,6 +116,7 @@ const PaketPage = () => {
     }
   }, [selectedTahun]);
 
+  // Ambil data mata kuliah paket jika tahun dan paket MK sudah tersedia
   useEffect(() => {
     if (selectedTahun && mkPaketId) {
       getMataKuliahPaket(selectedTahun, mkPaketId)
@@ -130,31 +140,53 @@ const PaketPage = () => {
     setMkPaketId(e.target.value);
   };
 
-  const handleSimpan = async () => {
-    const krsData = mataKuliahPaket.map(mk => ({
-      JadwalID: mk.jadwal_id,
-      MKKode: mk.mk_kode,
-      MK_id: mk.mk_id,
-      NamaMK: mk.nama_mk,
-      SKS: mk.sks,
-    }));
+  // Fungsi yang dipanggil ketika pengguna mengonfirmasi penyimpanan KRS
+  const handleConfirmSave = async () => {
+    setLoading(true);
+    setMessage('');
+    try {
+      const krsData = mataKuliahPaket.map(mk => ({
+        JadwalID: mk.jadwal_id,
+        MKKode: mk.mk_kode,
+        MK_id: mk.mk_id,
+        NamaMK: mk.nama_mk,
+        SKS: mk.sks,
+      }));
 
-    const payload: KrsPayload = {
-      TahunID: selectedTahun,
-      KrsData: krsData,
-      KhsID: khsID,
-    };
+      const payload: KrsPayload = {
+        TahunID: selectedTahun,
+        KrsData: krsData,
+        KhsID: khsID,
+      };
 
-    const response = await simpanKrs(payload);
-    console.log("Simpan response:", response);
-    if (response && response.status === "success") {
-      setIsKrsSubmitted(true);
+      const response = await simpanKrs(payload);
+      console.log("Simpan response:", response);
+      if (response && response.status === "success") {
+        setIsKrsSubmitted(true);
+        setStatus("success");
+        setMessage("KRS berhasil disimpan!");
+      } else {
+        setStatus("error");
+        setMessage("Gagal menyimpan KRS.");
+      }
+    } catch (error) {
+      console.error("Error saving KRS:", error);
+      setStatus("error");
+      setMessage("Terjadi kesalahan saat menyimpan KRS.");
     }
+    setLoading(false);
+    setModalOpen(false);
   };
 
   return (
     <div className="p-6 md:p-10 lg:p-12 space-y-4">
       <ProfileSection />
+
+      {message && (
+        <div role="alert" className={`alert ${status === "success" ? "alert-success" : "alert-error"}`}>
+          <span>{message}</span>
+        </div>
+      )}
 
       <div className="mb-4">
         <label className="block mb-2 text-sm font-medium text-gray-700">
@@ -176,11 +208,29 @@ const PaketPage = () => {
         </select>
       </div>
 
+      {/* PaketSection menerima onSave yang sekarang membuka modal konfirmasi */}
       <PaketSection 
         mataKuliahPaket={mataKuliahPaket} 
-        onSave={handleSimpan} 
+        onSave={() => setModalOpen(true)} 
         isSubmitted={hasKrs || isKrsSubmitted}
       />
+
+      {modalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-sm">
+          <div className="bg-base-100 p-6 rounded-lg shadow-lg max-w-sm border border-gray-300">
+            <h3 className="text-lg font-bold mb-4">Konfirmasi</h3>
+            <p>Apakah Anda yakin ingin menyimpan KRS?</p>
+            <div className="flex justify-end mt-4 space-x-2">
+              <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>
+                Batal
+              </button>
+              <button className="btn btn-primary" onClick={handleConfirmSave} disabled={loading}>
+                {loading ? "Loading..." : "Simpan"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
