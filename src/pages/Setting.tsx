@@ -59,7 +59,7 @@ console.log("ID:", id); // Debugging
     };
 
     return (
-        <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg mb-20">
             <h2 className="text-xl font-bold mb-4">User Form</h2>
             {loading && <p className="text-gray-500">Loading...</p>}
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}

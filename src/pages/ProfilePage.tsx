@@ -87,7 +87,7 @@ const MahasiswaForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 md:p-10 lg:p-12 space-y-4 pb-20">
+    <div className="max-w-lg mx-auto p-6 md:p-10 lg:p-12 space-y-4 pb-20 mb-20">
       <h2 className="text-xl font-bold mb-4">Profil Anda</h2>
       {message && (
         <div role="alert" className={`alert ${status === "success" ? "alert-success" : "alert-error"}`}>
