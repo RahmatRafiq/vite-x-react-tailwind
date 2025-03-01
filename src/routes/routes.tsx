@@ -25,7 +25,7 @@ const router = createBrowserRouter([
           { path: "nilai", element: <NilaiPage /> },
           { path: "profile_page", element: <ProfilePage /> },
           { path: "/mahasiswa", element: <ProfilePage /> },
-          { path: "setting", element: <Setting /> },
+          { path: "/users/:id", element: <Setting /> },
           { path: "/krs", element: <KrsPage /> },
         ]
       },
