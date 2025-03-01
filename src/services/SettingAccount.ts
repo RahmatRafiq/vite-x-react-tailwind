@@ -14,7 +14,23 @@ export interface UserResponse {
     code: number;
 }
 
-export const PutUser = async (user: User): Promise<UserResponse> => {
+export const findUser = async (id: string): Promise<User | null> => {
+    const response = await fetchData<UserResponse>(
+        `${import.meta.env.VITE_APP_API_URL}/users/${id}`
+    );
+    
+    console.log("Response dari getUser:", response);
+
+    if (response && response.status === "success" && Array.isArray(response.data) && response.data.length > 0) {
+        return response.data[0]; // Ambil user pertama dari array
+    }
+
+    return null; // Jika tidak ada data, kembalikan null
+};
+
+
+
+export const PutUser = async ( user: User): Promise<UserResponse> => {
     return await fetchData<UserResponse>(
         `${import.meta.env.VITE_APP_API_URL}/users`,
         {
@@ -23,15 +39,3 @@ export const PutUser = async (user: User): Promise<UserResponse> => {
         }
     ) || { status: "error", data: [], code: 500 };
 };
-
-export const findUser = async (id: string): Promise<UserResponse> => {
-    console.log("Mencari user dengan ID:", id);
-    const data = await fetchData<UserResponse>(
-        `${import.meta.env.VITE_APP_API_URL}/users/${id}`
-    );
-    console.log("Response dari getUser:", data);
-    return data || { status: "error", data: [], code: 500 };
-};
-
-
-
