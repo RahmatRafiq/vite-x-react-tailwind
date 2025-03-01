@@ -34,18 +34,4 @@ export const findUser = async (id: string): Promise<UserResponse> => {
 };
 
 
-// export const findUser = async (id: string): Promise<UserResponse> => {
-//     try {
-//         const data = await fetchData<UserResponse>(
-//             `${import.meta.env.VITE_APP_API_URL}/users/${id}`
-//         );
-//         console.log("Response dari getUser:", data); // Debugging
-
-//         return data || { status: "error", data: [], code: 500 };
-//     } catch (error) {
-//         console.error("Error fetching user:", error);
-//         return { status: "error", data: [], code: 500 };
-//     }
-// };
-
 
