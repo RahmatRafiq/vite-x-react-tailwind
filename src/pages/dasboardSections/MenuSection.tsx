@@ -7,7 +7,7 @@ const MenuSection = () => {
     { id: 1, name: "Jadwal", icon: <FaHome />, tooltip: "Jadwal", path: "/Jadwal" },
     { id: 2, name: "Buat Krs", icon: <FaInfoCircle />, tooltip: "Buat Krs", path: "/krs" },
     { id: 3, name: "Stats", icon: <FaChartBar />, tooltip: "Stats", path: "/stats" },
-    { id: 4, name: "Setting", icon: <FaCog />, tooltip: "Settings", path: "/setting" },
+    { id: 4, name: "Setting", icon: <FaCog />, tooltip: "Settings", path: "/users/:id" },
     { id: 5, name: "Profile", icon: <FaUserCircle />, tooltip: "Profile", path: "/mahasiswa" },
     { id: 6, name: "Social Media", icon: <FaInstagram />, tooltip: "Social Media", path: "/social" },
   ];
