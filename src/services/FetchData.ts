@@ -1,4 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios';
+// src/services/fetchData.ts
+import { AxiosRequestConfig } from "axios";
+import axiosInstance from "./fetchWithAuth";
 
 const fetchData = async <T>(url: string, options?: AxiosRequestConfig): Promise<T | null> => {
     try {
@@ -6,17 +8,17 @@ const fetchData = async <T>(url: string, options?: AxiosRequestConfig): Promise<
         if (!token) throw new Error("Token tidak ditemukan");
 
         const config: AxiosRequestConfig = {
-            method: options?.method || "GET", // Default GET jika tidak ada method
+            method: options?.method || "GET",
             url,
             headers: {
                 Authorization: `Bearer ${token}`,
                 "X-Api-Key": `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
-            ...options, // Spread untuk menerima opsi tambahan (data, params, dll.)
+            ...options,
         };
 
-        const response = await axios(config);
+        const response = await axiosInstance(config);
         return response.data;
     } catch (error: unknown) {
         console.error("Error fetching data:", error);
