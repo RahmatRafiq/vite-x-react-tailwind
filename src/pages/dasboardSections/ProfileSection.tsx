@@ -1,6 +1,7 @@
 import { getProfilMahasiswa } from "@/services/Profile";
 import { Mahasiswa } from "@/types/profile";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ProfileSection = () => {
     const [profile, setProfile] = useState<Mahasiswa | null>(null);
@@ -34,7 +35,9 @@ const ProfileSection = () => {
                     <h4 className="text-md font-medium"><strong>NIM:</strong> {profile?.mhsw_id || "Tidak Ditemukan"}</h4>
                 </div>
                 <div className="card-actions justify-end mt-4">
-                    <button className="btn glass ">Lihat Detail</button>
+                    <button className="btn glass">
+                    <Link to= "/mahasiswa">Lihat Detail</Link>
+                        </button>
                 </div>
             </div>
         </div>

@@ -26,10 +26,8 @@ const MenuSection = () => {
   return (
     <ul className="menu bg-base-200 rounded-box p-4 grid grid-cols-3 gap-4 mt-6">
       {menuItems.map((item, index) => {
-        // Buat background gradien untuk ikon
         const backgroundGradient = `linear-gradient(45deg, ${hexToRGBA(item.colors[0], 0.2)}, ${hexToRGBA(item.colors[1], 0.2)})`;
 
-        // Jika item adalah "Setting" dan user login dengan NIM, maka render sebagai disabled
         if (item.name === "Setting" && isNIMLogin) {
           return (
             <li key={item.id}>
