@@ -18,7 +18,7 @@ const ProfileSection = () => {
     }, []);
 
     return (
-        <div className="card card-side bg-base-100 shadow-xl">
+        <div className="card card-side bg-base-300 shadow-xl">
             <figure>
                 <img
                     className="w-full h-full object-cover rounded-xl"

@@ -59,7 +59,7 @@ const SummarySection = () => {
     <div className="bg-base-200 rounded-lg p-4 sm:p-6 shadow-md my-6">
       <div className="flex flex-row justify-between items-center gap-4 sm:gap-6">
         {statistics.map((stat, index) => {
-          // Buat background gradien dengan opasitas rendah
+      
           const backgroundGradient = `linear-gradient(45deg, ${hexToRGBA(stat.colors[0], 0.2)}, ${hexToRGBA(stat.colors[1], 0.2)})`;
           return (
             <div
@@ -85,7 +85,7 @@ const SummarySection = () => {
                   })}
                 </div>
               </div>
-              <div className="stat-title text-sm sm:text-base font-semibold truncate">
+              <div className="stat-title text-sm font-semibold truncate">
                 {stat.label}
               </div>
               <div className="stat-value text-lg sm:text-2xl font-bold">
