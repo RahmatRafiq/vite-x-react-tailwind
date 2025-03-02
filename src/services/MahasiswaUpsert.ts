@@ -1,17 +1,6 @@
 import { MahasiswaUserResponse } from "@/types/MahasiswaUpsert";
 import fetchData from "./FetchData";
 
-
-export const PutMahasiswa = async (mahasiswa: string): Promise<MahasiswaUserResponse> => {
-    return await fetchData<MahasiswaUserResponse>(
-        `${import.meta.env.VITE_APP_API_URL}/mahasiswa`,
-        {
-            method: "PUT",
-            data: mahasiswa,
-        }
-    ) || ({ status: "error", data: [null, []], code: 500 } as unknown as MahasiswaUserResponse);
-}
-
 export const getMahasiswa = async (mhsw_id: string): Promise<MahasiswaUserResponse> => {
     const data = await fetchData<MahasiswaUserResponse>(`${import.meta.env.VITE_APP_API_URL}/mahasiswa/${mhsw_id}`);
     console.log(data);
