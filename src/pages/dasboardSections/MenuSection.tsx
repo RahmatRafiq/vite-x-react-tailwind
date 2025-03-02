@@ -20,7 +20,6 @@ const hexToRGBA = (hex: string, alpha: number) => {
 };
 
 const MenuSection = () => {
-  // Baca flag apakah login menggunakan NIM
   const isNIMLogin = localStorage.getItem("isNIMLogin") === "true";
 
   return (
@@ -55,7 +54,6 @@ const MenuSection = () => {
           );
         }
 
-        // Render item menu biasa
         return (
           <li key={item.id}>
             <Link
