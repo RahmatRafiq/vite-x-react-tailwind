@@ -12,6 +12,7 @@
     "@capacitor/android": "^6.2.0",
     "@capacitor/cli": "^6.2.0",
     "@capacitor/core": "^6.2.0",
+    "axios": "^1.7.9",
     "daisyui": "^4.12.23",
     "dayjs": "^1.11.13",
     "jspdf": "^2.5.2",
